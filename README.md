@@ -1,2 +1,2 @@
 # Copycat
-This project meant to be a practice exercice where I reproduce game/part of game that I loved. In no case ti will be used commercially
+This project meant to be a practice exercice where I reproduce game/part of game that I loved. In no case it will be used commercially
