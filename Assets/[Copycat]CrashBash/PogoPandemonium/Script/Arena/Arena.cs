@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PangoPandemonium
 {
@@ -17,11 +18,26 @@ namespace PangoPandemonium
         public List<LineTiles> lineTiles = new List<LineTiles>();
     }
 
+
     public class Arena : MonoBehaviour
     {
-        public ArenaTiles _arenaTiles = new ArenaTiles();
+        public static Arena Instance { get; private set; }
+        public UnityEvent onGameSetup = new UnityEvent();
+        private ArenaTiles _arenaTiles = new ArenaTiles();
 
-        // Start is called before the first frame update
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
         void Start()
         {
             for (int z = 0; z < GameConstant.Z_ARENA_SIZE; z++)
@@ -33,12 +49,15 @@ namespace PangoPandemonium
                 }
             }
             RegisterTiles();
-            Pogotile pogotile = GetPogotileAtCoordonate(5, 2);
-            Debug.Log(pogotile.transform.name);
-
+            GameSetup();
         }
 
-        public Pogotile GetPogotileAtCoordonate(int z, int x)
+        private void GameSetup()
+        {
+            onGameSetup?.Invoke();
+        }
+
+        public Pogotile GetPogotileAtCoordinate(int z, int x)
         {
             if (z < 0 || z >= GameConstant.Z_ARENA_SIZE || x < 0 || x >= GameConstant.X_ARENA_SIZE)
                 return null;
@@ -56,6 +75,17 @@ namespace PangoPandemonium
                     int z = pogotile.Z;
                     _arenaTiles.lineTiles[z].pogotiles[x] = pogotile;
 
+                }
+            }
+        }
+
+        private void ResetOwnerOfAllPogoTile()
+        {
+            foreach (LineTiles lineTile in _arenaTiles.lineTiles)
+            {
+                foreach (Pogotile pogotile in lineTile.pogotiles)
+                {
+                    pogotile.SetOwner(null);
                 }
             }
         }
