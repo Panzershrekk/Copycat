@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace PangoPandemonium
+namespace PogoPandemonium
 {
     [Serializable]
     public class LineTiles
@@ -24,6 +25,7 @@ namespace PangoPandemonium
         public static Arena Instance { get; private set; }
         public UnityEvent onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
+        private List<Player> _players = new List<Player>();
 
         private void Awake()
         {
@@ -49,6 +51,7 @@ namespace PangoPandemonium
                 }
             }
             RegisterTiles();
+            RegisterPlayer();
             GameSetup();
         }
 
@@ -79,6 +82,15 @@ namespace PangoPandemonium
             }
         }
 
+        private void RegisterPlayer()
+        {
+            _players = FindObjectsByType<Player>(FindObjectsSortMode.None).ToList();
+            foreach (Player player in _players)
+            {
+                onGameSetup.AddListener(player.PlayerSetup);
+            }
+        }
+
         private void ResetOwnerOfAllPogoTile()
         {
             foreach (LineTiles lineTile in _arenaTiles.lineTiles)
@@ -87,6 +99,14 @@ namespace PangoPandemonium
                 {
                     pogotile.SetOwner(null);
                 }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (Player player in _players)
+            {
+                onGameSetup.RemoveListener(player.PlayerSetup);
             }
         }
     }

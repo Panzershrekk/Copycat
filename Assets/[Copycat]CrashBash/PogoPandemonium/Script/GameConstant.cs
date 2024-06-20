@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PangoPandemonium
+namespace PogoPandemonium
 {
     public static class GameConstant
     {

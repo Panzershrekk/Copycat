@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace PangoPandemonium
+namespace PogoPandemonium
 {
     public class Player : MonoBehaviour
     {
@@ -12,13 +13,17 @@ namespace PangoPandemonium
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private float _moveTickInSecond = 1f;
         private float _currentTickMove = 0;
+        protected MoveDirection _currenMoveDirection = MoveDirection.None;
+        protected CopyCatInputSystem _inputActions;
 
-        void Awake()
+        void Start()
         {
-            Arena.Instance.onGameSetup.AddListener(PlayerSetup);
+            _inputActions = new CopyCatInputSystem();
+            _inputActions.PogoPandemonium.Enable();
+            _inputActions.PogoPandemonium.UseBonus.performed += TestToDeleteUseBonus;
         }
 
-        void Update()
+        protected virtual void Update()
         {
             _currentTickMove -= Time.deltaTime;
             if (_currentTickMove < 0)
@@ -37,7 +42,7 @@ namespace PangoPandemonium
 
         private void ProcessAction()
         {
-            _actionHandler.ProcessDirection(this, MoveDirection.East);
+            _actionHandler.ProcessDirection(this, _currenMoveDirection);
         }
 
         public void SetCurrentPogotile(Pogotile pogotile)
@@ -46,9 +51,14 @@ namespace PangoPandemonium
             CurrentStandingPogoTile = pogotile;
         }
 
-        void OnDestroy()
+        public void TestToDeleteUseBonus(InputAction.CallbackContext callbackContext)
         {
-            Arena.Instance.onGameSetup.RemoveListener(PlayerSetup);
+            Debug.Log("Item used " + callbackContext.phase);
+        }
+
+        public float GetSpeed()
+        {
+            return _moveTickInSecond;
         }
     }
 }

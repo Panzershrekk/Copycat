@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-namespace PangoPandemonium
+namespace PogoPandemonium
 {
     public class ActionHandler : MonoBehaviour
     {
@@ -39,7 +39,7 @@ namespace PangoPandemonium
                     nextPogoTile = player.CurrentStandingPogoTile;
                 }
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
-                transform.DOJump(destination, 0.4f, 1, 0.9f, false).onComplete = () => player.SetCurrentPogotile(nextPogoTile);
+                transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).onComplete = () => player.SetCurrentPogotile(nextPogoTile);
                 //player.SetCurrentPogotile(nextPogoTile);
             }
         }
