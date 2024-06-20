@@ -34,10 +34,16 @@ namespace PogoPandemonium
                     nextPogoTile = Arena.Instance.GetPogotileAtCoordinate(playerCurrentPogotTile.Z, playerCurrentPogotTile.X - 1);
                     transform.rotation = Quaternion.Euler(0, 270, 0);
                 }
+                if (nextPogoTile != null && nextPogoTile.OccupiedByPlayer == true)
+                {
+                    nextPogoTile = null;
+                }
                 if (nextPogoTile == null)
                 {
                     nextPogoTile = player.CurrentStandingPogoTile;
                 }
+                playerCurrentPogotTile.SetOccupiedByPlayer(false);
+                nextPogoTile.SetOccupiedByPlayer(true);
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
                 transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).onComplete = () => player.SetCurrentPogotile(nextPogoTile);
                 //player.SetCurrentPogotile(nextPogoTile);

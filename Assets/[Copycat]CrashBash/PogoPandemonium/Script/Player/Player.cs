@@ -13,6 +13,7 @@ namespace PogoPandemonium
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private float _moveTickInSecond = 1f;
         private float _currentTickMove = 0;
+        private int _point = 0;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected CopyCatInputSystem _inputActions;
 
@@ -35,6 +36,8 @@ namespace PogoPandemonium
 
         public void PlayerSetup()
         {
+            _point = 0;
+            startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
             CurrentStandingPogoTile = startingTile;
             _currentTickMove = _moveTickInSecond;

@@ -23,7 +23,8 @@ namespace PogoPandemonium
     public class Arena : MonoBehaviour
     {
         public static Arena Instance { get; private set; }
-        public UnityEvent onGameSetup = new UnityEvent();
+        [SerializeField] private GameObject _pointBoxPrefab;
+        private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
         private List<Player> _players = new List<Player>();
 
@@ -53,11 +54,12 @@ namespace PogoPandemonium
             RegisterTiles();
             RegisterPlayer();
             GameSetup();
+            SpawnCrate();
         }
 
         private void GameSetup()
         {
-            onGameSetup?.Invoke();
+            _onGameSetup?.Invoke();
         }
 
         public Pogotile GetPogotileAtCoordinate(int z, int x)
@@ -65,6 +67,31 @@ namespace PogoPandemonium
             if (z < 0 || z >= GameConstant.Z_ARENA_SIZE || x < 0 || x >= GameConstant.X_ARENA_SIZE)
                 return null;
             return _arenaTiles.lineTiles[z].pogotiles[x];
+        }
+
+        public List<Pogotile> GetEmptyTiles()
+        {
+            List<Pogotile> emptyTiles = new List<Pogotile>();
+
+            foreach(LineTiles linetile in _arenaTiles.lineTiles)
+            {
+                foreach(Pogotile tile in linetile.pogotiles)
+                {
+                    if (tile.OccupiedByObject == false && tile.OccupiedByObject == false)
+                    {
+                        emptyTiles.Add(tile);
+                    }
+                }
+            }
+            return emptyTiles;
+        }
+
+        private void SpawnCrate()
+        {
+            List<Pogotile> emptyTiles = GetEmptyTiles();
+            Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
+            Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
+            pogotile.SetOccupiedByObject(true);
         }
 
         private void RegisterTiles()
@@ -87,7 +114,7 @@ namespace PogoPandemonium
             _players = FindObjectsByType<Player>(FindObjectsSortMode.None).ToList();
             foreach (Player player in _players)
             {
-                onGameSetup.AddListener(player.PlayerSetup);
+                _onGameSetup.AddListener(player.PlayerSetup);
             }
         }
 
@@ -106,7 +133,7 @@ namespace PogoPandemonium
         {
             foreach (Player player in _players)
             {
-                onGameSetup.RemoveListener(player.PlayerSetup);
+                _onGameSetup.RemoveListener(player.PlayerSetup);
             }
         }
     }
