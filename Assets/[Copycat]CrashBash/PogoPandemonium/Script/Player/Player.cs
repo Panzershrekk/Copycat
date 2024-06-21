@@ -59,6 +59,11 @@ namespace PogoPandemonium
             Debug.Log("Item used " + callbackContext.phase);
         }
 
+        public void AddPoint(int point)
+        {
+            _point += point;
+        }
+
         public float GetSpeed()
         {
             return _moveTickInSecond;

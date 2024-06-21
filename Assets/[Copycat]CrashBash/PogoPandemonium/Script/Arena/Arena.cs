@@ -23,7 +23,7 @@ namespace PogoPandemonium
     public class Arena : MonoBehaviour
     {
         public static Arena Instance { get; private set; }
-        [SerializeField] private GameObject _pointBoxPrefab;
+        [SerializeField] private PointCrate _pointBoxPrefab;
         private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
         private List<Player> _players = new List<Player>();
@@ -62,36 +62,24 @@ namespace PogoPandemonium
             _onGameSetup?.Invoke();
         }
 
-        public Pogotile GetPogotileAtCoordinate(int z, int x)
-        {
-            if (z < 0 || z >= GameConstant.Z_ARENA_SIZE || x < 0 || x >= GameConstant.X_ARENA_SIZE)
-                return null;
-            return _arenaTiles.lineTiles[z].pogotiles[x];
-        }
 
-        public List<Pogotile> GetEmptyTiles()
-        {
-            List<Pogotile> emptyTiles = new List<Pogotile>();
 
-            foreach(LineTiles linetile in _arenaTiles.lineTiles)
+        public void ValidatePointForPlayer(Player player)
+        {
+            List<Pogotile> pogotiles = GetPlayerTiles(player);
+            player.AddPoint(pogotiles.Count);
+            foreach (Pogotile pogotile in pogotiles)
             {
-                foreach(Pogotile tile in linetile.pogotiles)
-                {
-                    if (tile.OccupiedByObject == false && tile.OccupiedByObject == false)
-                    {
-                        emptyTiles.Add(tile);
-                    }
-                }
+                pogotile.SetOwner(null);
             }
-            return emptyTiles;
         }
 
         private void SpawnCrate()
         {
             List<Pogotile> emptyTiles = GetEmptyTiles();
             Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-            Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
-            pogotile.SetOccupiedByObject(true);
+            PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
+            pogotile.SetOccupiedByObject(true, crate);
         }
 
         private void RegisterTiles()
@@ -127,6 +115,47 @@ namespace PogoPandemonium
                     pogotile.SetOwner(null);
                 }
             }
+        }
+
+        public Pogotile GetPogotileAtCoordinate(int z, int x)
+        {
+            if (z < 0 || z >= GameConstant.Z_ARENA_SIZE || x < 0 || x >= GameConstant.X_ARENA_SIZE)
+                return null;
+            return _arenaTiles.lineTiles[z].pogotiles[x];
+        }
+
+        public List<Pogotile> GetEmptyTiles()
+        {
+            List<Pogotile> emptyTiles = new List<Pogotile>();
+
+            foreach (LineTiles linetile in _arenaTiles.lineTiles)
+            {
+                foreach (Pogotile tile in linetile.pogotiles)
+                {
+                    if (tile.OccupiedByObject == false && tile.OccupiedByObject == false)
+                    {
+                        emptyTiles.Add(tile);
+                    }
+                }
+            }
+            return emptyTiles;
+        }
+
+        public List<Pogotile> GetPlayerTiles(Player player)
+        {
+            List<Pogotile> playerTiles = new List<Pogotile>();
+
+            foreach (LineTiles linetile in _arenaTiles.lineTiles)
+            {
+                foreach (Pogotile tile in linetile.pogotiles)
+                {
+                    if (tile.GetOwner() == player)
+                    {
+                        playerTiles.Add(tile);
+                    }
+                }
+            }
+            return playerTiles;
         }
 
         private void OnDestroy()

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5418996123591913244}
   - component: {fileID: 1724859231585335149}
   - component: {fileID: 8128538095682592158}
+  - component: {fileID: -3738496714078453672}
   m_Layer: 0
   m_Name: '[Prefab]PointBox'
   m_TagString: Untagged
@@ -107,3 +108,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3738496714078453672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095787863025043143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de661e8e2d354e646a65276c2deff08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

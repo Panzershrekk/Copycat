@@ -45,8 +45,17 @@ namespace PogoPandemonium
                 playerCurrentPogotTile.SetOccupiedByPlayer(false);
                 nextPogoTile.SetOccupiedByPlayer(true);
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
-                transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).onComplete = () => player.SetCurrentPogotile(nextPogoTile);
-                //player.SetCurrentPogotile(nextPogoTile);
+                transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).onComplete = () => FinishMovement(player, nextPogoTile);
+            }
+        }
+
+        private void FinishMovement(Player player, Pogotile pogotile)
+        {
+            player.SetCurrentPogotile(pogotile);
+            if (pogotile.OccupiedByObject == true)
+            {
+                pogotile.PickableOnTile.Pick(player);
+                pogotile.SetOccupiedByObject(false, null);
             }
         }
     }
