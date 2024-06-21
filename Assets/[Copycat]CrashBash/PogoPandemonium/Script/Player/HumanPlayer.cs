@@ -9,7 +9,6 @@ namespace PogoPandemonium
         protected override void Update()
         {
             Vector2 dir = _inputActions.PogoPandemonium.Move.ReadValue<Vector2>();
-            Debug.Log("dir " + dir);
             if (dir.x > 0.5)
             {
                 _currenMoveDirection = MoveDirection.East;

@@ -12,7 +12,7 @@ namespace PogoPandemonium
         public Pogotile CurrentStandingPogoTile { get; private set; }
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private float _moveTickInSecond = 1f;
-        private float _currentTickMove = 0;
+        protected float _currentTickMove = 0;
         private int _point = 0;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected CopyCatInputSystem _inputActions;
@@ -26,12 +26,16 @@ namespace PogoPandemonium
 
         protected virtual void Update()
         {
-            _currentTickMove -= Time.deltaTime;
             if (_currentTickMove < 0)
             {
                 ProcessAction();
                 _currentTickMove = _moveTickInSecond;
             }
+        }
+
+        private void LateUpdate()
+        {
+            _currentTickMove -= Time.deltaTime;
         }
 
         public void PlayerSetup()

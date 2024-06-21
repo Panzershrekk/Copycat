@@ -24,7 +24,7 @@ namespace PogoPandemonium
             Z = z;
         }
 
-        public void SetOwner(Player player)
+        public void SetOwner(Player player, bool withAnim = false)
         {
             _owner = player;
             if (player != null)

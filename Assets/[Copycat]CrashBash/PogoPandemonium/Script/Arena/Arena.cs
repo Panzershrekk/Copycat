@@ -158,6 +158,58 @@ namespace PogoPandemonium
             return playerTiles;
         }
 
+        public List<Pogotile> GetAdjacentTileOfTile(Pogotile pogotile)
+        {
+            List<Pogotile> adjacentTiles = new List<Pogotile>();
+
+            Pogotile north = GetPogotileAtCoordinate(pogotile.Z + 1, pogotile.X);
+            Pogotile east = GetPogotileAtCoordinate(pogotile.Z, pogotile.X + 1);
+            Pogotile south = GetPogotileAtCoordinate(pogotile.Z - 1, pogotile.X);
+            Pogotile west = GetPogotileAtCoordinate(pogotile.Z, pogotile.X - 1);
+            if (north != null)
+            {
+                adjacentTiles.Add(north);
+            }
+            if (east != null)
+            {
+                adjacentTiles.Add(east);
+            }
+            if (south != null)
+            {
+                adjacentTiles.Add(south);
+            }
+            if (west != null)
+            {
+                adjacentTiles.Add(west);
+            }
+            return adjacentTiles;
+        }
+
+        public MoveDirection GetRelativeDirectionFromTile(Pogotile from, Pogotile to)
+        {
+            MoveDirection direction = MoveDirection.None;
+
+            int z = to.Z - from.Z;
+            int x = to.X - from.X;
+            if (z > 0)
+            {
+                direction = MoveDirection.North;
+            }
+            else if (x > 0)
+            {
+                direction = MoveDirection.East;
+            }
+            else if (z < 0)
+            {
+                direction = MoveDirection.South;
+            }
+            else if (x < 0)
+            {
+                direction = MoveDirection.West; 
+            }
+            return direction;
+        }
+
         private void OnDestroy()
         {
             foreach (Player player in _players)
