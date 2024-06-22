@@ -7,7 +7,7 @@ public class PointCrate : MonoBehaviour, IPickable
 {
     public void Pick(Player player)
     {
-        Arena.Instance.ValidatePointForPlayer(player);
+        Arena.Instance.ValidatePointForPlayer(player, this);
         Destroy(this.gameObject);
     }
 }

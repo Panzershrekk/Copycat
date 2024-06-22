@@ -23,10 +23,15 @@ namespace PogoPandemonium
     public class Arena : MonoBehaviour
     {
         public static Arena Instance { get; private set; }
+        //Tick time to check for bonus crate etc ...
+        [SerializeField] private float _tickCheck = 5f;
+        [SerializeField] private int _maxCrateOnArena = 2;
         [SerializeField] private PointCrate _pointBoxPrefab;
         private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
         private List<Player> _players = new List<Player>();
+        private List<PointCrate> _pointCrates = new List<PointCrate>();
+        private float _currentTickTime = 0f;
 
         private void Awake()
         {
@@ -54,7 +59,16 @@ namespace PogoPandemonium
             RegisterTiles();
             RegisterPlayer();
             GameSetup();
-            SpawnCrate();
+        }
+
+        private void Update()
+        {
+            if (_currentTickTime < 0)
+            {
+                SpawnCrates();
+                _currentTickTime = _tickCheck;
+            }
+            _currentTickTime -= Time.deltaTime;
         }
 
         private void GameSetup()
@@ -62,10 +76,9 @@ namespace PogoPandemonium
             _onGameSetup?.Invoke();
         }
 
-
-
-        public void ValidatePointForPlayer(Player player)
+        public void ValidatePointForPlayer(Player player, PointCrate pointCrate)
         {
+            _pointCrates.Remove(pointCrate);
             List<Pogotile> pogotiles = GetPlayerTiles(player);
             player.AddPoint(pogotiles.Count);
             foreach (Pogotile pogotile in pogotiles)
@@ -74,12 +87,18 @@ namespace PogoPandemonium
             }
         }
 
-        private void SpawnCrate()
+        private void SpawnCrates()
         {
+            int numberToSpawn = _maxCrateOnArena - _pointCrates.Count;
             List<Pogotile> emptyTiles = GetEmptyTiles();
-            Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-            PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
-            pogotile.SetOccupiedByObject(true, crate);
+            for (int i = 0; i < numberToSpawn; i++)
+            {
+                Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
+                PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
+                pogotile.SetOccupiedByObject(true, crate);
+                emptyTiles.Remove(pogotile);
+                _pointCrates.Add(crate);
+            }
         }
 
         private void RegisterTiles()
@@ -92,7 +111,6 @@ namespace PogoPandemonium
                     int x = pogotile.X;
                     int z = pogotile.Z;
                     _arenaTiles.lineTiles[z].pogotiles[x] = pogotile;
-
                 }
             }
         }
@@ -205,7 +223,7 @@ namespace PogoPandemonium
             }
             else if (x < 0)
             {
-                direction = MoveDirection.West; 
+                direction = MoveDirection.West;
             }
             return direction;
         }
