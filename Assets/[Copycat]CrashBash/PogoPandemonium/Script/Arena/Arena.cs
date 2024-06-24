@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,11 +28,30 @@ namespace PogoPandemonium
         [SerializeField] private float _tickCheck = 5f;
         [SerializeField] private int _maxCrateOnArena = 2;
         [SerializeField] private PointCrate _pointBoxPrefab;
+        [SerializeField] private TMP_Text _timerText;
+        [SerializeField] private GameSequences _introSequence;
+
         private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
         private List<Player> _players = new List<Player>();
         private List<PointCrate> _pointCrates = new List<PointCrate>();
         private float _currentTickTime = 0f;
+        private float _currentRoundTime = 0f;
+        public float CurrentRoundTime
+        {
+            get
+            {
+                return _currentRoundTime;
+            }
+
+            private set
+            {
+                _currentRoundTime = value;
+                UpdateTimerText(_currentRoundTime);
+            }
+        }
+
+        private bool _gameStarted = false;
 
         private void Awake()
         {
@@ -56,6 +76,8 @@ namespace PogoPandemonium
                     _arenaTiles.lineTiles[z].pogotiles.Add(null);
                 }
             }
+            _introSequence.onStartSequenceOver.AddListener(StartRound);
+            _introSequence.onEndSequenceOver.AddListener(GameSetup);
             RegisterTiles();
             RegisterPlayer();
             GameSetup();
@@ -63,17 +85,50 @@ namespace PogoPandemonium
 
         private void Update()
         {
-            if (_currentTickTime < 0)
+            if (_gameStarted == true)
             {
-                SpawnCrates();
-                _currentTickTime = _tickCheck;
+                if (_currentTickTime < 0)
+                {
+                    SpawnCrates();
+                    _currentTickTime = _tickCheck;
+                }
+                CurrentRoundTime -= Time.deltaTime;
+                _currentTickTime -= Time.deltaTime;
+                if (CurrentRoundTime <= 0)
+                {
+                    AllowPlayerMovement(false);
+                    _introSequence.StartEndSequence();
+                    _gameStarted = false;
+                }
             }
-            _currentTickTime -= Time.deltaTime;
         }
 
         private void GameSetup()
         {
+            _gameStarted = false;
+            foreach (PointCrate pointCrate in _pointCrates)
+            {
+                Destroy(pointCrate.gameObject);
+            }
+            _pointCrates.Clear();
+            foreach (Player player in _players)
+            {
+                if (player != null)
+                {
+                    player.PositionPlayerToStartingTile();
+                }
+            }
+            ResetAllPogoTile();
+            CurrentRoundTime = GameConstant.ROUND_TIME_IN_SECOND;
+            AllowPlayerMovement(false);
             _onGameSetup?.Invoke();
+            _introSequence.StartIntroSequence();
+        }
+
+        private void StartRound()
+        {
+            _gameStarted = true;
+            AllowPlayerMovement(true);
         }
 
         public void ValidatePointForPlayer(Player player, PointCrate pointCrate)
@@ -124,14 +179,24 @@ namespace PogoPandemonium
             }
         }
 
-        private void ResetOwnerOfAllPogoTile()
+        private void ResetAllPogoTile()
         {
             foreach (LineTiles lineTile in _arenaTiles.lineTiles)
             {
                 foreach (Pogotile pogotile in lineTile.pogotiles)
                 {
                     pogotile.SetOwner(null);
+                    pogotile.SetOccupiedByObject(false, null);
+                    pogotile.SetOccupiedByPlayer(false);
                 }
+            }
+        }
+
+        private void AllowPlayerMovement(bool canMove)
+        {
+            foreach (Player p in _players)
+            {
+                p.AllowMovement(canMove);
             }
         }
 
@@ -228,12 +293,24 @@ namespace PogoPandemonium
             return direction;
         }
 
+        private void UpdateTimerText(float time)
+        {
+            TimeSpan t = TimeSpan.FromSeconds(time);
+            string formatedTime = string.Format("{0:D2} : {1:D2}", t.Minutes, t.Seconds);
+            if (_timerText != null)
+            {
+                _timerText.text = formatedTime;
+            }
+        }
+
         private void OnDestroy()
         {
             foreach (Player player in _players)
             {
                 _onGameSetup.RemoveListener(player.PlayerSetup);
             }
+            _introSequence.onStartSequenceOver.RemoveListener(StartRound);
+            _introSequence.onEndSequenceOver.RemoveListener(GameSetup);
         }
     }
 }

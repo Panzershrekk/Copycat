@@ -7,6 +7,8 @@ namespace PogoPandemonium
 {
     public class ActionHandler : MonoBehaviour
     {
+        public Tween Jump { get; private set; }
+
         public void ProcessDirection(Player player, MoveDirection moveDirection)
         {
             if (Arena.Instance != null)
@@ -45,7 +47,7 @@ namespace PogoPandemonium
                 playerCurrentPogotTile.SetOccupiedByPlayer(false);
                 nextPogoTile.SetOccupiedByPlayer(true);
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
-                transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).onComplete = () => FinishMovement(player, nextPogoTile);
+                Jump = transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
             }
         }
 

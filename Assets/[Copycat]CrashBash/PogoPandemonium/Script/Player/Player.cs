@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,12 +9,15 @@ namespace PogoPandemonium
     public class Player : MonoBehaviour
     {
         public Pogotile startingTile;
+        public float baseRotation;
         public Material associatedColorMaterial;
         public Pogotile CurrentStandingPogoTile { get; private set; }
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private float _moveTickInSecond = 1f;
+        [SerializeField] private PlayerInfo _playerInfo;
         protected float _currentTickMove = 0;
         private int _point = 0;
+        private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected CopyCatInputSystem _inputActions;
 
@@ -40,7 +44,7 @@ namespace PogoPandemonium
 
         public void PlayerSetup()
         {
-            _point = 0;
+            SetPoint(0);
             startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
             CurrentStandingPogoTile = startingTile;
@@ -49,6 +53,10 @@ namespace PogoPandemonium
 
         private void ProcessAction()
         {
+            if (_canMove == false)
+            {
+                _currenMoveDirection = MoveDirection.None;
+            }
             _actionHandler.ProcessDirection(this, _currenMoveDirection);
         }
 
@@ -63,14 +71,45 @@ namespace PogoPandemonium
             Debug.Log("Item used " + callbackContext.phase);
         }
 
+        public void PositionPlayerToStartingTile()
+        {
+            _actionHandler.Jump.Kill();
+            this.transform.rotation = Quaternion.Euler(0, baseRotation, 0);
+            this.transform.position = startingTile.transform.position + new Vector3(0.5f, 0, 0.5f);
+        }
+
+        public void SetPoint(int point)
+        {
+            _point = point;
+            if (_playerInfo != null)
+            {
+                _playerInfo.UpdatePointText(_point);
+            }
+
+        }
+
         public void AddPoint(int point)
         {
             _point += point;
+            if (_playerInfo != null)
+            {
+                _playerInfo.UpdatePointText(_point);
+            }
+        }
+
+        public void AllowMovement(bool canMove)
+        {
+            _canMove = canMove;
         }
 
         public float GetSpeed()
         {
             return _moveTickInSecond;
+        }
+
+        public int GetPoint()
+        {
+            return _point;
         }
     }
 }
