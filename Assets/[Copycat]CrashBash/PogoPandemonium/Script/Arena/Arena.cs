@@ -136,6 +136,7 @@ namespace PogoPandemonium
             _pointCrates.Remove(pointCrate);
             List<Pogotile> pogotiles = GetPlayerTiles(player);
             player.AddPoint(pogotiles.Count);
+            PogoPandemoniumUIManager.Instance.DisplayScore(pointCrate.transform.position, pogotiles.Count);
             foreach (Pogotile pogotile in pogotiles)
             {
                 pogotile.SetOwner(null);
@@ -149,7 +150,7 @@ namespace PogoPandemonium
             for (int i = 0; i < numberToSpawn; i++)
             {
                 Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-                PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
+                PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
                 pogotile.SetOccupiedByObject(true, crate);
                 emptyTiles.Remove(pogotile);
                 _pointCrates.Add(crate);
