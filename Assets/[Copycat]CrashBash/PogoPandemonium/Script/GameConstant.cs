@@ -13,5 +13,8 @@ namespace PogoPandemonium
         public const float JUMP_HEIGHT_BETWEEN_TILE = 0.4f;
 
         public const float ROUND_TIME_IN_SECOND = 20;
+
+        public const float TIME_BETWEEN_BLINK = 0.05f;
+        public const float BLINK_TIME = 0.25f;
     }
 }

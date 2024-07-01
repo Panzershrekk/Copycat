@@ -51,7 +51,7 @@ namespace PogoPandemonium
                     _currenMoveDirection = MoveDirection.None;
                 }
                 //_currenMoveDirection = MoveDirection.South;
-                Debug.Log("_currenMoveDirection " + _currenMoveDirection);
+                //Debug.Log("_currenMoveDirection " + _currenMoveDirection);
             }
             base.Update();
         }

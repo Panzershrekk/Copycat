@@ -28,6 +28,7 @@ namespace PogoPandemonium
         [SerializeField] private float _tickCheck = 5f;
         [SerializeField] private int _maxCrateOnArena = 2;
         [SerializeField] private PointCrate _pointBoxPrefab;
+        [SerializeField] private ArrowBonus _arrowBonusPrefab;
         [SerializeField] private TMP_Text _timerText;
         [SerializeField] private GameSequences _introSequence;
 
@@ -128,6 +129,7 @@ namespace PogoPandemonium
         private void StartRound()
         {
             _gameStarted = true;
+            SpawnArrow();
             AllowPlayerMovement(true);
         }
 
@@ -139,7 +141,7 @@ namespace PogoPandemonium
             PogoPandemoniumUIManager.Instance.DisplayScore(pointCrate.transform.position, pogotiles.Count);
             foreach (Pogotile pogotile in pogotiles)
             {
-                pogotile.SetOwner(null);
+                pogotile.SetOwner(null, true);
             }
         }
 
@@ -155,6 +157,20 @@ namespace PogoPandemonium
                 emptyTiles.Remove(pogotile);
                 _pointCrates.Add(crate);
             }
+        }
+
+        private void SpawnArrow()
+        {
+            int numberToSpawn = _maxCrateOnArena - _pointCrates.Count;
+            List<Pogotile> emptyTiles = GetEmptyTiles();
+            /*for (int i = 0; i < numberToSpawn; i++)
+            {*/
+            Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
+            ArrowBonus arrow = Instantiate(_arrowBonusPrefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
+            pogotile.SetOccupiedByObject(true, arrow);
+            //emptyTiles.Remove(pogotile);
+            //_pointCrates.Add(crate);
+            /*}*/
         }
 
         private void RegisterTiles()
@@ -216,7 +232,7 @@ namespace PogoPandemonium
             {
                 foreach (Pogotile tile in linetile.pogotiles)
                 {
-                    if (tile.OccupiedByObject == false && tile.OccupiedByObject == false)
+                    if (tile.OccupiedByPlayer == false && tile.OccupiedByObject == false)
                     {
                         emptyTiles.Add(tile);
                     }
@@ -292,6 +308,43 @@ namespace PogoPandemonium
                 direction = MoveDirection.West;
             }
             return direction;
+        }
+
+        public void FillTilesFromTileAndDirectionForPlayer(Pogotile pogotile, MoveDirection direction, Player player)
+        {
+            int x = 0;
+            int z = 0;
+            Pogotile currentPogoTile = pogotile;
+
+            if (direction == MoveDirection.North)
+            {
+                z += 1;
+            }
+            if (direction == MoveDirection.East)
+            {
+                x += 1;
+            }
+            if (direction == MoveDirection.South)
+            {
+                z -= 1;
+            }
+            if (direction == MoveDirection.West)
+            {
+                x -= 1;
+            }
+
+            bool canGoNext = true;
+
+            while (canGoNext == true)
+            {
+                currentPogoTile = GetPogotileAtCoordinate(currentPogoTile.Z + z, currentPogoTile.X + x);
+                if (currentPogoTile == null)
+                {
+                    canGoNext = false;
+                    break;
+                }
+                currentPogoTile.SetOwner(player, true);
+            }
         }
 
         private void UpdateTimerText(float time)
