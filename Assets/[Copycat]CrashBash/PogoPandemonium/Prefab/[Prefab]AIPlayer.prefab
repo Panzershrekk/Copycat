@@ -8530,6 +8530,7 @@ MonoBehaviour:
   _actionHandler: {fileID: 7046282764193914412}
   _moveTickInSecond: 0.5
   _playerInfo: {fileID: 0}
+  _animator: {fileID: 1385906392422670514}
 --- !u!1 &7749268930423029665
 GameObject:
   m_ObjectHideFlags: 0

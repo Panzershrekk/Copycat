@@ -13,13 +13,28 @@ namespace PogoPandemonium
         public Material associatedColorMaterial;
         public Pogotile CurrentStandingPogoTile { get; private set; }
         [SerializeField] private ActionHandler _actionHandler;
-        [SerializeField] private float _moveTickInSecond = 1f;
         [SerializeField] private PlayerInfo _playerInfo;
+        [SerializeField] private Animator _animator;
+
         protected float _currentTickMove = 0;
         private int _point = 0;
         private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected CopyCatInputSystem _inputActions;
+
+        protected float _currentTickMoveSpeed = 0;
+        public float CurrentTickMoveSpeed
+        {
+            get
+            {
+                return _currentTickMoveSpeed;
+            }
+            protected set
+            {
+                _animator.speed = value == 0 ? GameConstant.BASE_MOVE_TICK_TIME : 1/value;
+                _currentTickMoveSpeed = value;
+            }
+        }
 
         void Start()
         {
@@ -33,7 +48,7 @@ namespace PogoPandemonium
             if (_currentTickMove < 0)
             {
                 ProcessAction();
-                _currentTickMove = _moveTickInSecond;
+                _currentTickMove = CurrentTickMoveSpeed;
             }
         }
 
@@ -48,7 +63,8 @@ namespace PogoPandemonium
             startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
             CurrentStandingPogoTile = startingTile;
-            _currentTickMove = _moveTickInSecond;
+            CurrentTickMoveSpeed = GameConstant.BASE_MOVE_TICK_TIME;
+            _currentTickMove = CurrentTickMoveSpeed;
         }
 
         private void ProcessAction()
@@ -104,7 +120,7 @@ namespace PogoPandemonium
 
         public float GetSpeed()
         {
-            return _moveTickInSecond;
+            return CurrentTickMoveSpeed;
         }
 
         public int GetPoint()
