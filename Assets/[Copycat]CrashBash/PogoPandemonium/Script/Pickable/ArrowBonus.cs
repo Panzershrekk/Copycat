@@ -10,6 +10,7 @@ namespace PogoPandemonium
         [SerializeField] private float _switchTime = 0.5f;
         private MoveDirection _facingDirection = MoveDirection.North;
         private float _currentSwitchTime = 0;
+        private Tween _tweenInstance;
 
         // Start is called before the first frame update
         void Start()
@@ -33,6 +34,7 @@ namespace PogoPandemonium
         public void Pick(Player player)
         {
             Arena.Instance.FillTilesFromTileAndDirectionForPlayer(player.CurrentStandingPogoTile, _facingDirection, player);
+            Arena.Instance.RemoveArrowFromItsList(this);
             Destroy(this.gameObject);
         }
 
@@ -40,7 +42,7 @@ namespace PogoPandemonium
         {
             List<MoveDirection> moveDirections = GetAdjacentDirection(moveDirection);
             _facingDirection = moveDirections[Random.Range(0, moveDirections.Count)];
-            transform.DORotate(GetRotationFromDirection(_facingDirection), 0.2f, RotateMode.Fast);
+            _tweenInstance = transform.DORotate(GetRotationFromDirection(_facingDirection), 0.2f, RotateMode.Fast);
         }
 
         private List<MoveDirection> GetAdjacentDirection(MoveDirection direction)
@@ -79,6 +81,14 @@ namespace PogoPandemonium
                 return new Vector3(0, 270, 0);
             }
             return new Vector3();
+        }
+
+        private void OnDestroy()
+        {
+            if (_tweenInstance != null)
+            {
+                _tweenInstance.Kill();
+            }
         }
     }
 }

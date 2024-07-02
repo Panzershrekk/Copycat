@@ -27,15 +27,24 @@ namespace PogoPandemonium
         //Tick time to check for bonus crate etc ...
         [SerializeField] private float _tickCheck = 5f;
         [SerializeField] private int _maxCrateOnArena = 2;
+
         [SerializeField] private PointCrate _pointBoxPrefab;
         [SerializeField] private ArrowBonus _arrowBonusPrefab;
+        [SerializeField] private Missile _missilePrefab;
+        [SerializeField] private SpeedyShoes _speedyShoesPrefabs;
+
         [SerializeField] private TMP_Text _timerText;
         [SerializeField] private GameSequences _introSequence;
 
         private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
         private List<Player> _players = new List<Player>();
+
         private List<PointCrate> _pointCrates = new List<PointCrate>();
+        private List<ArrowBonus> _arrowBonus = new List<ArrowBonus>();
+        private List<Missile> _missile = new List<Missile>();
+        private List<SpeedyShoes> _speedyShoes = new List<SpeedyShoes>();
+
         private float _currentTickTime = 0f;
         private float _currentRoundTime = 0f;
         public float CurrentRoundTime
@@ -90,7 +99,7 @@ namespace PogoPandemonium
             {
                 if (_currentTickTime < 0)
                 {
-                    SpawnCrates();
+                    SpawnerHandler();
                     _currentTickTime = _tickCheck;
                 }
                 CurrentRoundTime -= Time.deltaTime;
@@ -107,11 +116,12 @@ namespace PogoPandemonium
         private void GameSetup()
         {
             _gameStarted = false;
-            foreach (PointCrate pointCrate in _pointCrates)
-            {
-                Destroy(pointCrate.gameObject);
-            }
-            _pointCrates.Clear();
+
+            ClearGivenPickableList(_pointCrates);
+            ClearGivenPickableList(_arrowBonus);
+            ClearGivenPickableList(_missile);
+            ClearGivenPickableList(_speedyShoes);
+
             foreach (Player player in _players)
             {
                 if (player != null)
@@ -129,7 +139,6 @@ namespace PogoPandemonium
         private void StartRound()
         {
             _gameStarted = true;
-            SpawnArrow();
             AllowPlayerMovement(true);
         }
 
@@ -145,33 +154,34 @@ namespace PogoPandemonium
             }
         }
 
-        private void SpawnCrates()
+        private void SpawnerHandler()
         {
-            int numberToSpawn = _maxCrateOnArena - _pointCrates.Count;
+            int numberOfCrateToSpawn = _maxCrateOnArena - _pointCrates.Count;
+            SpawnPickable(_pointBoxPrefab, _pointCrates, numberOfCrateToSpawn);
+
+            int numberOfArrowToSpawn = 1;
+            SpawnPickable(_arrowBonusPrefab, _arrowBonus, numberOfArrowToSpawn);
+
+            int numberOfMissileToSpawn = 1;
+            SpawnPickable(_missilePrefab, _missile, numberOfMissileToSpawn);
+
+            int numberOfShoesToSpawn = 1;
+            SpawnPickable(_speedyShoesPrefabs, _speedyShoes, numberOfShoesToSpawn);
+        }
+
+        private void SpawnPickable<T>(T prefab, List<T> objectList, int numberToSpawn) where T : MonoBehaviour, IPickable
+        {
             List<Pogotile> emptyTiles = GetEmptyTiles();
             for (int i = 0; i < numberToSpawn; i++)
             {
                 Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-                PointCrate crate = Instantiate(_pointBoxPrefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
-                pogotile.SetOccupiedByObject(true, crate);
+                T obj = Instantiate(prefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
+                pogotile.SetOccupiedByObject(true, obj);
                 emptyTiles.Remove(pogotile);
-                _pointCrates.Add(crate);
+                objectList.Add(obj);
             }
         }
 
-        private void SpawnArrow()
-        {
-            int numberToSpawn = _maxCrateOnArena - _pointCrates.Count;
-            List<Pogotile> emptyTiles = GetEmptyTiles();
-            /*for (int i = 0; i < numberToSpawn; i++)
-            {*/
-            Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-            ArrowBonus arrow = Instantiate(_arrowBonusPrefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
-            pogotile.SetOccupiedByObject(true, arrow);
-            //emptyTiles.Remove(pogotile);
-            //_pointCrates.Add(crate);
-            /*}*/
-        }
 
         private void RegisterTiles()
         {
@@ -355,6 +365,33 @@ namespace PogoPandemonium
             {
                 _timerText.text = formatedTime;
             }
+        }
+
+        private void ClearGivenPickableList<T>(List<T> pickables) where T : MonoBehaviour, IPickable
+        {
+            foreach (T pickable in pickables)
+            {
+                if (pickable != null)
+                {
+                    Destroy(pickable.gameObject);
+                }
+            }
+            pickables.Clear();
+        }
+
+        public void RemoveArrowFromItsList(ArrowBonus arrowBonus)
+        {
+            _arrowBonus.Remove(arrowBonus);
+        }
+
+        public void RemoveMissileFromItsList(Missile missile)
+        {
+            _missile.Remove(missile);
+        }
+
+        public void RemoveShoesFromItsList(SpeedyShoes shoes)
+        {
+            _speedyShoes.Remove(shoes);
         }
 
         private void OnDestroy()

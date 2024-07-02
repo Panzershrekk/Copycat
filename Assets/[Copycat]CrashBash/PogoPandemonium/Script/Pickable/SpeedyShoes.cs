@@ -4,19 +4,18 @@ using DG.Tweening;
 using PogoPandemonium;
 using UnityEngine;
 
-public class PointCrate : MonoBehaviour, IPickable
+public class SpeedyShoes : MonoBehaviour, IPickable
 {
     private Tween _tweenInstance;
 
     public void Start()
     {
-        this.transform.localScale = new Vector3(1, 0, 1);
-        transform.DOScale(new Vector3(1, 1, 1), 0.2f);
+        _tweenInstance = transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);
     }
 
     public void Pick(Player player)
     {
-        Arena.Instance.ValidatePointForPlayer(player, this);
+        Arena.Instance.RemoveShoesFromItsList(this);
         Destroy(this.gameObject);
     }
 

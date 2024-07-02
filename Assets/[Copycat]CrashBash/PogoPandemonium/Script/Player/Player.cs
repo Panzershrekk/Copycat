@@ -73,7 +73,7 @@ namespace PogoPandemonium
 
         public void PositionPlayerToStartingTile()
         {
-            _actionHandler.Jump.Kill();
+            _actionHandler.JumpTween.Kill();
             this.transform.rotation = Quaternion.Euler(0, baseRotation, 0);
             this.transform.position = startingTile.transform.position + new Vector3(0.5f, 0, 0.5f);
         }
