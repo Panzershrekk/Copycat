@@ -33,8 +33,7 @@ namespace PogoPandemonium
             {
                 text.text = score.ToString();
             }
-            scoreTextInstance.transform.DOMoveY(10, 5).OnComplete(() => Destroy(scoreTextInstance));
-            //scoreTextInstance.text = "+" + points.ToString();
+            scoreTextInstance.transform.DOMoveY(8, 3.5f).SetEase(Ease.InOutElastic).OnComplete(() => Destroy(scoreTextInstance));
         }
     }
 }

@@ -138,7 +138,6 @@ MonoBehaviour:
   baseRotation: 0
   associatedColorMaterial: {fileID: 2100000, guid: 0c765b88faf7883479246f0c988a1aad, type: 2}
   _actionHandler: {fileID: 2503923365698334092}
-  _moveTickInSecond: 0.5
   _playerInfo: {fileID: 0}
   _animator: {fileID: 3337665010447755092}
 --- !u!114 &2503923365698334092
