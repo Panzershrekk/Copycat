@@ -6007,6 +6007,63 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &4871298241642685178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 477611209729122336, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_Name
+      value: '[Prefab]MissileDamager'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192876885998485984, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
 --- !u!23 &4925858519190388226
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8449,7 +8506,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2295771158076447620, guid: 90168e10cbb19a9479db88361bfdb880, type: 3}
       propertyPath: m_Name
-      value: '[Prefab]Missile'
+      value: '[Prefab]MissilePickable'
       objectReference: {fileID: 0}
     - target: {fileID: 4190807847319973400, guid: 90168e10cbb19a9479db88361bfdb880, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9407,3 +9464,4 @@ SceneRoots:
   - {fileID: 1023106061}
   - {fileID: 8161702248197371579}
   - {fileID: 1668957625140989086}
+  - {fileID: 4871298241642685178}

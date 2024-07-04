@@ -23,7 +23,6 @@ namespace PogoPandemonium
         private int _point = 0;
         private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
-        protected CopyCatInputSystem _inputActions;
         protected float _currentTickMoveSpeed = 0;
         public float CurrentTickMoveSpeed
         {
@@ -38,19 +37,28 @@ namespace PogoPandemonium
             }
         }
 
-        void Start()
-        {
-            _inputActions = new CopyCatInputSystem();
-            _inputActions.PogoPandemonium.Enable();
-            _inputActions.PogoPandemonium.UseBonus.performed += UseActive;
-        }
+        private bool _isStunned = false;
+        private float _currentStunTime = 0.0f;
+
+
 
         protected virtual void Update()
         {
             if (_currentTickMove < 0)
             {
-                ProcessAction();
-                _currentTickMove = CurrentTickMoveSpeed;
+                if (_isStunned == false)
+                {
+                    ProcessAction();
+                    _currentTickMove = CurrentTickMoveSpeed;
+                }
+                else
+                {
+                    _currentStunTime -= Time.deltaTime;
+                    if (_currentStunTime < 0)
+                    {
+                        StunPlayer(false);
+                    }
+                }
             }
         }
 
@@ -62,6 +70,7 @@ namespace PogoPandemonium
         public void PlayerSetup()
         {
             SetPoint(0);
+            StunPlayer(false);
             startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
             CurrentStandingPogoTile = startingTile;
@@ -84,12 +93,24 @@ namespace PogoPandemonium
             CurrentStandingPogoTile = pogotile;
         }
 
-        public void UseActive(InputAction.CallbackContext callbackContext)
+        public void UseActive()
         {
             if (CanUseActiveBuff() == true)
             {
                 ((IActiveBonus)_currentBuff).Use(this);
             }
+        }
+
+        public void StunPlayer(bool stunStatus)
+        {
+            if (stunStatus == true)
+            {
+                RemoveBuff();
+                _currentStunTime = GameConstant.STUN_TIME;
+            }
+            _isStunned = stunStatus;
+            _animator.SetBool("Stunned", stunStatus);
+
         }
 
         protected bool CanUseActiveBuff()

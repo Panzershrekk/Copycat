@@ -8,6 +8,8 @@ namespace PogoPandemonium
     public class Missile : MonoBehaviour, IPickable
     {
         [SerializeField] GameObject _indicator;
+        [SerializeField] MissileDamager _missileDamager;
+
         private Tween _tweenInstance;
 
         public void Start()
@@ -17,7 +19,7 @@ namespace PogoPandemonium
 
         public void Pick(Player player)
         {
-            player.ApplyBuff(new MissileBuff(_indicator));
+            player.ApplyBuff(new MissileBuff(_indicator, _missileDamager));
             Arena.Instance.RemoveMissileFromItsList(this);
             Destroy(this.gameObject);
         }
