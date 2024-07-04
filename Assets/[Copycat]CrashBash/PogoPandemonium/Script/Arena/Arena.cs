@@ -127,6 +127,7 @@ namespace PogoPandemonium
                 if (player != null)
                 {
                     player.PositionPlayerToStartingTile();
+                    player.RemoveBuff();
                 }
             }
             ResetAllPogoTile();

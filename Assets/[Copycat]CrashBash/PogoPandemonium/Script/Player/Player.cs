@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -15,13 +16,14 @@ namespace PogoPandemonium
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private PlayerInfo _playerInfo;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _buffIndicatorParent;
 
+        protected IBuff _currentBuff;
         protected float _currentTickMove = 0;
         private int _point = 0;
         private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected CopyCatInputSystem _inputActions;
-
         protected float _currentTickMoveSpeed = 0;
         public float CurrentTickMoveSpeed
         {
@@ -31,7 +33,7 @@ namespace PogoPandemonium
             }
             protected set
             {
-                _animator.speed = value == 0 ? GameConstant.BASE_MOVE_TICK_TIME : 1/value;
+                _animator.speed = value == 0 ? GameConstant.BASE_MOVE_TICK_TIME : 1 / value;
                 _currentTickMoveSpeed = value;
             }
         }
@@ -40,7 +42,7 @@ namespace PogoPandemonium
         {
             _inputActions = new CopyCatInputSystem();
             _inputActions.PogoPandemonium.Enable();
-            _inputActions.PogoPandemonium.UseBonus.performed += TestToDeleteUseBonus;
+            _inputActions.PogoPandemonium.UseBonus.performed += UseActive;
         }
 
         protected virtual void Update()
@@ -82,9 +84,40 @@ namespace PogoPandemonium
             CurrentStandingPogoTile = pogotile;
         }
 
-        public void TestToDeleteUseBonus(InputAction.CallbackContext callbackContext)
+        public void UseActive(InputAction.CallbackContext callbackContext)
         {
-            Debug.Log("Item used " + callbackContext.phase);
+            if (CanUseActiveBuff() == true)
+            {
+                ((IActiveBonus)_currentBuff).Use(this);
+            }
+        }
+
+        protected bool CanUseActiveBuff()
+        {
+            if (_currentBuff != null && _currentBuff is IActiveBonus)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void ApplyBuff(IBuff buff)
+        {
+            if (_currentBuff != null)
+            {
+                _currentBuff.Remove(this);
+            }
+            _currentBuff = buff;
+            _currentBuff.Apply(this);
+        }
+
+        public void RemoveBuff()
+        {
+            if (_currentBuff != null)
+            {
+                _currentBuff.Remove(this);
+                _currentBuff = null;
+            }
         }
 
         public void PositionPlayerToStartingTile()
@@ -118,14 +151,20 @@ namespace PogoPandemonium
             _canMove = canMove;
         }
 
-        public float GetSpeed()
+        public void SetSpeed(float speed)
         {
-            return CurrentTickMoveSpeed;
+            CurrentTickMoveSpeed = speed;
+        }
+
+        public Transform GetBuffIndicatorParent()
+        {
+            return _buffIndicatorParent;
         }
 
         public int GetPoint()
         {
             return _point;
         }
+
     }
 }

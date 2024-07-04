@@ -18,5 +18,8 @@ namespace PogoPandemonium
         public const float BLINK_TIME = 0.35f;
 
         public const float BASE_MOVE_TICK_TIME = 0.6f;
+        public const float SPEEDY_SHOES_TICK_TIME = 0.3f;
+        public const float SPEEDY_SHOES_DURATION_IN_SECOND = 8f;
+        public const float MISSILE_SPEED = 8f;
     }
 }

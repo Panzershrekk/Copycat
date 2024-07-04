@@ -47,7 +47,7 @@ namespace PogoPandemonium
                 playerCurrentPogotTile.SetOccupiedByPlayer(false);
                 nextPogoTile.SetOccupiedByPlayer(true);
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
-                JumpTween = transform.DOJump(destination, 0.4f, 1, player.GetSpeed() * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
+                JumpTween = transform.DOJump(destination, 0.4f, 1, player.CurrentTickMoveSpeed * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
             }
         }
 
