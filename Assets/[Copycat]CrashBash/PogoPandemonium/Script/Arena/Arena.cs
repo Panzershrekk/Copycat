@@ -164,19 +164,19 @@ namespace PogoPandemonium
             SpawnPickable(_arrowBonusPrefab, _arrowBonus, numberOfArrowToSpawn);
 
             int numberOfMissileToSpawn = 1;
-            SpawnPickable(_missilePrefab, _missile, numberOfMissileToSpawn);
+            SpawnPickable(_missilePrefab, _missile, numberOfMissileToSpawn, 0.25f);
 
             int numberOfShoesToSpawn = 1;
-            SpawnPickable(_speedyShoesPrefabs, _speedyShoes, numberOfShoesToSpawn);
+            SpawnPickable(_speedyShoesPrefabs, _speedyShoes, numberOfShoesToSpawn, 0.25f);
         }
 
-        private void SpawnPickable<T>(T prefab, List<T> objectList, int numberToSpawn) where T : MonoBehaviour, IPickable
+        private void SpawnPickable<T>(T prefab, List<T> objectList, int numberToSpawn, float yOffset = 0) where T : MonoBehaviour, IPickable
         {
             List<Pogotile> emptyTiles = GetEmptyTiles();
             for (int i = 0; i < numberToSpawn; i++)
             {
                 Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
-                T obj = Instantiate(prefab, pogotile.transform.position + new Vector3(0.5f, 0f, 0.5f), Quaternion.identity);
+                T obj = Instantiate(prefab, pogotile.transform.position + new Vector3(0.5f, 0f + yOffset, 0.5f), Quaternion.identity);
                 pogotile.SetOccupiedByObject(true, obj);
                 emptyTiles.Remove(pogotile);
                 objectList.Add(obj);

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PointCrate : MonoBehaviour, IPickable
 {
+    [SerializeField] GameObject _breakParticlePrefab;
     private Tween _tweenInstance;
 
     public void Start()
@@ -17,6 +18,7 @@ public class PointCrate : MonoBehaviour, IPickable
     public void Pick(Player player)
     {
         Arena.Instance.ValidatePointForPlayer(player, this);
+        Instantiate(_breakParticlePrefab, this.transform.position, Quaternion.identity, null);
         Destroy(this.gameObject);
     }
 
