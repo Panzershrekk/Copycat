@@ -8,7 +8,8 @@ namespace PogoPandemonium
     {
         private MissileDamager _missileDamager;
 
-        public MissileBuff(GameObject indicatorPrefab, MissileDamager damager) : base(indicatorPrefab) { 
+        public MissileBuff(GameObject indicatorPrefab, MissileDamager damager) : base(indicatorPrefab)
+        {
             _missileDamager = damager;
         }
 
@@ -24,7 +25,10 @@ namespace PogoPandemonium
 
         public void Use(Player player)
         {
-            MissileDamager missileDamager = GameObject.Instantiate(_missileDamager, player.transform.position + new Vector3(0, 0.5f, 0), player.transform.rotation, null);
+            MoveDirection moveDirection = player.GetCurrentMoveDirection();
+            int rotationY = MoveDirectionExtensions.GetYRotationFromDirection(moveDirection);
+
+            MissileDamager missileDamager = GameObject.Instantiate(_missileDamager, player.transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, rotationY, 0), null);
             missileDamager.Setup(player);
             player.RemoveBuff();
         }

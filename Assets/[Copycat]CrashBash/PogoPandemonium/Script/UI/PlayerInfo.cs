@@ -8,12 +8,21 @@ namespace PogoPandemonium
     public class PlayerInfo : MonoBehaviour
     {
         [SerializeField] private TMP_Text _pointText;
+        [SerializeField] private TMP_Text _winText;
+
         private int _currentValue = 0;
         private int _startValue = 0;
         private int _endValue = 0;
 
         private float _duration = 0.5f;
         private Coroutine _currentRoutine;
+        private int _currentNumberOfWin = 0;
+
+        public void AddWin()
+        {
+            _currentNumberOfWin++;
+            _winText.text = _currentNumberOfWin.ToString();
+        }
 
         public void UpdatePointText(int value)
         {

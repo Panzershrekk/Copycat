@@ -17,7 +17,7 @@ namespace PogoPandemonium
         [SerializeField] private PlayerInfo _playerInfo;
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _buffIndicatorParent;
-
+        [SerializeField] private GameObject _decal;
         protected IBuff _currentBuff;
         protected float _currentTickMove = 0;
         private int _point = 0;
@@ -73,6 +73,9 @@ namespace PogoPandemonium
             StunPlayer(false);
             startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
+            transform.localScale = Vector3.one;
+            _decal.SetActive(true);
+            _animator.Play("PogoIdle");
             CurrentStandingPogoTile = startingTile;
             CurrentTickMoveSpeed = GameConstant.BASE_MOVE_TICK_TIME;
             _currentTickMove = CurrentTickMoveSpeed;
@@ -187,5 +190,23 @@ namespace PogoPandemonium
             return _point;
         }
 
+        public MoveDirection GetCurrentMoveDirection()
+        {
+            return _currenMoveDirection;
+        }
+
+        public void DoWin()
+        {
+            CurrentTickMoveSpeed = 1;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            _playerInfo.AddWin();
+            _animator.Play("POGO_WIN");
+        }
+
+        public void DoLose()
+        {
+            transform.DOScale(0.0f, 1f).SetEase(Ease.InOutBack);
+            _decal.SetActive(false);
+        }
     }
 }

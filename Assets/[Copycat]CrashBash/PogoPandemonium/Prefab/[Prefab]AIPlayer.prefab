@@ -8634,6 +8634,7 @@ MonoBehaviour:
   _playerInfo: {fileID: 0}
   _animator: {fileID: 1385906392422670514}
   _buffIndicatorParent: {fileID: 1809257625883085228}
+  _decal: {fileID: 5418278691880108783}
 --- !u!65 &2687843649426981352
 BoxCollider:
   m_ObjectHideFlags: 0

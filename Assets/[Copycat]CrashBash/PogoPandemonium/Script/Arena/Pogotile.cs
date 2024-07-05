@@ -95,6 +95,12 @@ namespace PogoPandemonium
             PickableOnTile = objectOnTile;
         }
 
+        public void ResetOwners()
+        {
+            _previousOwner = null;
+            _owner = null;
+        }
+
         public Player GetOwner()
         {
             return _owner;

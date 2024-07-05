@@ -144,6 +144,7 @@ MonoBehaviour:
   _playerInfo: {fileID: 0}
   _animator: {fileID: 3337665010447755092}
   _buffIndicatorParent: {fileID: 4101228048811321220}
+  _decal: {fileID: 5317076932944300755}
 --- !u!114 &2503923365698334092
 MonoBehaviour:
   m_ObjectHideFlags: 0

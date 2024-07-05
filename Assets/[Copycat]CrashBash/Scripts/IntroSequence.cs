@@ -4,14 +4,15 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameSequences : MonoBehaviour
 {
     [SerializeField] private Image _blackScreen;
-    [SerializeField] private Image _3;
-    [SerializeField] private Image _2;
-    [SerializeField] private Image _1;
-    [SerializeField] private Image _go;
+    [SerializeField] private TMP_Text _3;
+    [SerializeField] private TMP_Text _2;
+    [SerializeField] private TMP_Text _1;
+    [SerializeField] private TMP_Text _go;
     [HideInInspector] public UnityEvent onStartSequenceOver = new UnityEvent();
     [HideInInspector] public UnityEvent onEndSequenceOver = new UnityEvent();
 
@@ -39,11 +40,13 @@ public class GameSequences : MonoBehaviour
         sequence.OnComplete(() => onStartSequenceOver?.Invoke());
     }
 
-    public void StartEndSequence()
+    public void StartEndSequence(GameObject toZoom, Camera camera)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(0.4f).
-                Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));
+        sequence.AppendInterval(0.5f)
+        .Append(camera.transform.DOMove(toZoom.transform.position + new Vector3(0, camera.transform.position.y - 1, -2), 0.5f))
+                .AppendInterval(3.5f)
+                .Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));
         sequence.Play();
         sequence.OnComplete(() => onEndSequenceOver?.Invoke());
     }

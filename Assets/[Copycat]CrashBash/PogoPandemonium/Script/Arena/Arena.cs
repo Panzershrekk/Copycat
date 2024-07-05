@@ -32,7 +32,7 @@ namespace PogoPandemonium
         [SerializeField] private ArrowBonus _arrowBonusPrefab;
         [SerializeField] private Missile _missilePrefab;
         [SerializeField] private SpeedyShoes _speedyShoesPrefabs;
-
+        [SerializeField] private Camera _mainCamera;
         [SerializeField] private TMP_Text _timerText;
         [SerializeField] private GameSequences _introSequence;
 
@@ -44,6 +44,7 @@ namespace PogoPandemonium
         private List<ArrowBonus> _arrowBonus = new List<ArrowBonus>();
         private List<Missile> _missile = new List<Missile>();
         private List<SpeedyShoes> _speedyShoes = new List<SpeedyShoes>();
+        private Vector3 _baseCameraPos;
 
         private float _currentTickTime = 0f;
         private float _currentRoundTime = 0f;
@@ -86,6 +87,7 @@ namespace PogoPandemonium
                     _arenaTiles.lineTiles[z].pogotiles.Add(null);
                 }
             }
+            _baseCameraPos = _mainCamera.transform.position;
             _introSequence.onStartSequenceOver.AddListener(StartRound);
             _introSequence.onEndSequenceOver.AddListener(GameSetup);
             RegisterTiles();
@@ -107,7 +109,20 @@ namespace PogoPandemonium
                 if (CurrentRoundTime <= 0)
                 {
                     AllowPlayerMovement(false);
-                    _introSequence.StartEndSequence();
+                    Player winner = GetWinner();
+                    foreach (Player player in _players)
+                    {
+                        player.RemoveBuff();
+                        if (player == winner)
+                        {
+                            player.DoWin();
+                        }
+                        else
+                        {
+                            player.DoLose();
+                        }
+                    }
+                    _introSequence.StartEndSequence(winner.gameObject, _mainCamera);
                     _gameStarted = false;
                 }
             }
@@ -116,7 +131,7 @@ namespace PogoPandemonium
         private void GameSetup()
         {
             _gameStarted = false;
-
+            _mainCamera.transform.position = _baseCameraPos;
             ClearGivenPickableList(_pointCrates);
             ClearGivenPickableList(_arrowBonus);
             ClearGivenPickableList(_missile);
@@ -216,6 +231,7 @@ namespace PogoPandemonium
                     pogotile.SetOwner(null);
                     pogotile.SetOccupiedByObject(false, null);
                     pogotile.SetOccupiedByPlayer(false);
+                    pogotile.ResetOwners();
                 }
             }
         }
@@ -226,6 +242,21 @@ namespace PogoPandemonium
             {
                 p.AllowMovement(canMove);
             }
+        }
+
+        private Player GetWinner()
+        {
+            int bestScore = 0;
+            Player winner = null;
+            foreach (Player player in _players)
+            {
+                if (player.GetPoint() > bestScore)
+                {
+                    bestScore = player.GetPoint();
+                    winner = player;
+                }
+            }
+            return winner;
         }
 
         public Pogotile GetPogotileAtCoordinate(int z, int x)
@@ -361,7 +392,7 @@ namespace PogoPandemonium
         private void UpdateTimerText(float time)
         {
             TimeSpan t = TimeSpan.FromSeconds(time);
-            string formatedTime = string.Format("{0:D2} : {1:D2}", t.Minutes, t.Seconds);
+            string formatedTime = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
             if (_timerText != null)
             {
                 _timerText.text = formatedTime;
