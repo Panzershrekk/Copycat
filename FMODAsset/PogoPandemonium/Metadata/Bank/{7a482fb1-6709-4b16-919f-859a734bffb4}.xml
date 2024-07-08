@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="Bank" id="{7a482fb1-6709-4b16-919f-859a734bffb4}">
+		<property name="name">
+			<value>Copycat</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e3102f3e-ecbf-4439-bfb6-722b155cab28}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -98,4 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ad955fd6cd2f348bec0f720564534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickUpSound:
+    Guid:
+      Data1: -1121054046
+      Data2: 1252864939
+      Data3: 1617085592
+      Data4: -1247584193
+    Path: event:/ArrowPicked
   _switchTime: 1

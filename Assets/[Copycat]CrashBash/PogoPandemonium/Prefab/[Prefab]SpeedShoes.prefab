@@ -99,6 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93941873d770a1046bc9a854b3b7da10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickUpSound:
+    Guid:
+      Data1: 1990043099
+      Data2: 1088727267
+      Data3: -917683029
+      Data4: -1119396464
+    Path: event:/ShoesPicked
   _indicator: {fileID: 1213125179299326358, guid: be4183d425a6e5145807a5b7cc2d4319, type: 3}
 --- !u!1 &3141963436984339975
 GameObject:

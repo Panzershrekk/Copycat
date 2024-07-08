@@ -99,6 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f34009c3379f74496eb8e697a34058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickUpSound:
+    Guid:
+      Data1: -1371365572
+      Data2: 1115874118
+      Data3: -1310959173
+      Data4: 2061546143
+    Path: event:/MissilePicked
   _indicator: {fileID: 3625004324847621314, guid: 13b9c98260e9aa542bd6df434f76e7b1, type: 3}
   _missileDamager: {fileID: 7528318563924885501, guid: 4eec190843a46874b8d57ba32d875d11, type: 3}
 --- !u!1 &5135383956162780671

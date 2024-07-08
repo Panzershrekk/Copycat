@@ -120,4 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de661e8e2d354e646a65276c2deff08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickUpSound:
+    Guid:
+      Data1: -400505736
+      Data2: 1095349731
+      Data3: -1379793764
+      Data4: 1719046357
+    Path: event:/CratePicked
   _breakParticlePrefab: {fileID: 4961459838076899262, guid: 815eb643ec2bae74e920ee4716e71226, type: 3}

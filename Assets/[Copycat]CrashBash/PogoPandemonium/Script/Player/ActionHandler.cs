@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FMODUnity;
 using UnityEngine;
 
 namespace PogoPandemonium
@@ -8,6 +9,7 @@ namespace PogoPandemonium
     public class ActionHandler : MonoBehaviour
     {
         public Tween JumpTween { get; private set; }
+        [SerializeField] EventReference _jumpSound;
 
         public void ProcessDirection(Player player, MoveDirection moveDirection)
         {
@@ -47,6 +49,7 @@ namespace PogoPandemonium
                 playerCurrentPogotTile.SetOccupiedByPlayer(false);
                 nextPogoTile.SetOccupiedByPlayer(true);
                 Vector3 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
+                FMODUtilities.PlaySoundOneShot(_jumpSound);
                 JumpTween = transform.DOJump(destination, 0.4f, 1, player.CurrentTickMoveSpeed * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
             }
         }

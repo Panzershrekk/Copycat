@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using FMODUnity;
 
 namespace PogoPandemonium
 {
-    public class SpeedyShoes : MonoBehaviour, IPickable
+    public class SpeedyShoes : Pickable, IPickable
     {
         [SerializeField] GameObject _indicator;
         private Tween _tweenInstance;
@@ -20,8 +21,9 @@ namespace PogoPandemonium
             _tweenInstance = transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);
         }
 
-        public void Pick(Player player)
+        public override void Pick(Player player)
         {
+            PlayPickUpSound();
             player.ApplyBuff(new SpeedyShoesBuff(_indicator));
             Arena.Instance.RemoveShoesFromItsList(this);
             Destroy(this.gameObject);

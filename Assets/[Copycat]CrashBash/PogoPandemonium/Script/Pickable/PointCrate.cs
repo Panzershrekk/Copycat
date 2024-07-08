@@ -4,7 +4,7 @@ using DG.Tweening;
 using PogoPandemonium;
 using UnityEngine;
 
-public class PointCrate : MonoBehaviour, IPickable
+public class PointCrate : Pickable, IPickable
 {
     [SerializeField] GameObject _breakParticlePrefab;
     private Tween _tweenInstance;
@@ -15,8 +15,9 @@ public class PointCrate : MonoBehaviour, IPickable
         transform.DOScale(new Vector3(1, 1, 1), 0.2f);
     }
 
-    public void Pick(Player player)
+    public override void Pick(Player player)
     {
+        PlayPickUpSound();
         Arena.Instance.ValidatePointForPlayer(player, this);
         Instantiate(_breakParticlePrefab, this.transform.position, Quaternion.identity, null);
         Destroy(this.gameObject);

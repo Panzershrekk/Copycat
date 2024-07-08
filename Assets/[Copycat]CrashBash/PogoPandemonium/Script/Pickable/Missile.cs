@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PogoPandemonium
 {
-    public class Missile : MonoBehaviour, IPickable
+    public class Missile : Pickable, IPickable
     {
         [SerializeField] GameObject _indicator;
         [SerializeField] MissileDamager _missileDamager;
@@ -22,8 +22,9 @@ namespace PogoPandemonium
             _tweenInstance = transform.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);
         }
 
-        public void Pick(Player player)
+        public override void Pick(Player player)
         {
+            PlayPickUpSound();
             player.ApplyBuff(new MissileBuff(_indicator, _missileDamager));
             Arena.Instance.RemoveMissileFromItsList(this);
             Destroy(this.gameObject);

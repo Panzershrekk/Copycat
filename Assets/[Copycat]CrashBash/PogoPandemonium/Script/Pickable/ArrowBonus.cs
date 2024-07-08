@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PogoPandemonium
 {
-    public class ArrowBonus : MonoBehaviour, IPickable
+    public class ArrowBonus : Pickable, IPickable
     {
         [SerializeField] private float _switchTime = 0.5f;
         private MoveDirection _facingDirection = MoveDirection.North;
@@ -31,8 +31,9 @@ namespace PogoPandemonium
             }
         }
 
-        public void Pick(Player player)
+        public override void Pick(Player player)
         {
+            PlayPickUpSound();
             Arena.Instance.FillTilesFromTileAndDirectionForPlayer(player.CurrentStandingPogoTile, _facingDirection, player);
             Arena.Instance.RemoveArrowFromItsList(this);
             Destroy(this.gameObject);

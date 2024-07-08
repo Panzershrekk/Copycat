@@ -8577,6 +8577,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a340d283554ec274ea372bcbe6e8cbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpSound:
+    Guid:
+      Data1: 1409606390
+      Data2: 1284064356
+      Data3: -1426969957
+      Data4: 1110765808
+    Path: event:/Jump
 --- !u!114 &8457503113433693631
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -102,6 +102,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1543c864357e54eae93caf5b379b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnSound:
+    Guid:
+      Data1: 514757182
+      Data2: 1084988571
+      Data3: 1950002325
+      Data4: -2124268593
+    Path: event:/MissileLaunched
+  _onHitSound:
+    Guid:
+      Data1: 2132684425
+      Data2: 1209686189
+      Data3: 403038125
+      Data4: 1751562099
+    Path: event:/MissileImpact
 --- !u!65 &3342620638469091732
 BoxCollider:
   m_ObjectHideFlags: 0
