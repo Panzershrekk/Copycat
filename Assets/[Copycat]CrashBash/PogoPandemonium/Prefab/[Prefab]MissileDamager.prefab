@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1543c864357e54eae93caf5b379b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitParticle: {fileID: 1787354884675380817, guid: 2da929a32523f7e449615a5a621d72f4, type: 3}
   _spawnSound:
     Guid:
       Data1: 514757182

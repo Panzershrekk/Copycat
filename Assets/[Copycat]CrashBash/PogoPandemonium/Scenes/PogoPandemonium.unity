@@ -2506,7 +2506,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 475.85
+  m_fontSize: 475.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3469,7 +3469,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 475.85
+  m_fontSize: 475.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3671,7 +3671,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 475.85
+  m_fontSize: 475.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4828,7 +4828,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 477.05
+  m_fontSize: 477.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10151,6 +10151,13 @@ MonoBehaviour:
   _mainCamera: {fileID: 963194227}
   _timerText: {fileID: 571092962}
   _introSequence: {fileID: 316678695}
+  _beepSound:
+    Guid:
+      Data1: -1711639275
+      Data2: 1260184828
+      Data3: 2078117011
+      Data4: -2132125101
+    Path: event:/CountDown
 --- !u!33 &3552726412307143646
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,6 +36,7 @@ namespace PogoPandemonium
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private TMP_Text _timerText;
         [SerializeField] private GameSequences _introSequence;
+        [SerializeField] private EventReference _beepSound;
 
         private UnityEvent _onGameSetup = new UnityEvent();
         private ArenaTiles _arenaTiles = new ArenaTiles();
@@ -63,6 +65,8 @@ namespace PogoPandemonium
         }
 
         private bool _gameStarted = false;
+        private float _nextBeepTime = 0f;
+        private bool _nextBeepAllowed = false;
 
         private void Awake()
         {
@@ -132,6 +136,8 @@ namespace PogoPandemonium
         {
             _gameStarted = false;
             _mainCamera.transform.position = _baseCameraPos;
+            _nextBeepTime = 0;
+            _nextBeepAllowed = false;
             ClearGivenPickableList(_pointCrates);
             ClearGivenPickableList(_arrowBonus);
             ClearGivenPickableList(_missile);
@@ -392,6 +398,20 @@ namespace PogoPandemonium
         private void UpdateTimerText(float time)
         {
             TimeSpan t = TimeSpan.FromSeconds(time);
+            if (time < 5 && _nextBeepAllowed == false && _nextBeepTime >= 0)
+            {
+                _nextBeepTime -= Time.deltaTime;
+                if (_nextBeepTime < 0)
+                {
+                    _nextBeepAllowed = true;
+                }
+            }
+            if (_nextBeepAllowed)
+            {
+                FMODUtilities.PlaySoundOneShot(_beepSound);
+                _nextBeepTime = 1;
+                _nextBeepAllowed = false;
+            }
             string formatedTime = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
             if (_timerText != null)
             {

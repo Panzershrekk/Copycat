@@ -7,6 +7,7 @@ namespace PogoPandemonium
 {
     public class MissileDamager : MonoBehaviour
     {
+        [SerializeField] GameObject _hitParticle;
         [SerializeField] EventReference _spawnSound;
         [SerializeField] EventReference _onHitSound;
 
@@ -41,6 +42,7 @@ namespace PogoPandemonium
             if (player != null && player != _owner)
             {
                 FMODUtilities.PlaySoundOneShot(_onHitSound);
+                Instantiate(_hitParticle, other.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, null);
                 player.StunPlayer(true);
                 Destroy(this.gameObject);
             }

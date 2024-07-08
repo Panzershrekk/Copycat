@@ -16,6 +16,8 @@ namespace PogoPandemonium
         void Start()
         {
             _facingDirection = (MoveDirection)Random.Range(1, 5);
+            transform.localScale = new Vector3(0, 0, 0);
+            transform.DOScale(new Vector3(1, 1, 1), 0.2f);
             transform.rotation = Quaternion.Euler(GetRotationFromDirection(_facingDirection));
             _currentSwitchTime = 0.5f;
         }
