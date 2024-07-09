@@ -336,26 +336,81 @@ namespace PogoPandemonium
         public MoveDirection GetRelativeDirectionFromTile(Pogotile from, Pogotile to)
         {
             MoveDirection direction = MoveDirection.None;
+            if (from != null && to != null)
+            {
+                int z = to.Z - from.Z;
+                int x = to.X - from.X;
 
-            int z = to.Z - from.Z;
-            int x = to.X - from.X;
-            if (z > 0)
-            {
-                direction = MoveDirection.North;
-            }
-            else if (x > 0)
-            {
-                direction = MoveDirection.East;
-            }
-            else if (z < 0)
-            {
-                direction = MoveDirection.South;
-            }
-            else if (x < 0)
-            {
-                direction = MoveDirection.West;
+                if (z > 0)
+                {
+                    direction = MoveDirection.North;
+                }
+                else if (x > 0)
+                {
+                    direction = MoveDirection.East;
+                }
+                else if (z < 0)
+                {
+                    direction = MoveDirection.South;
+                }
+                else if (x < 0)
+                {
+                    direction = MoveDirection.West;
+                }
             }
             return direction;
+        }
+
+        public int GetDistanceFromTile(Pogotile from, Pogotile to)
+        {
+            int distance = 0;
+            if (from != null && to != null)
+            {
+                int z = to.Z - from.Z;
+                int x = to.X - from.X;
+                distance = Mathf.Abs(x) + Mathf.Abs(z);
+            }
+            return distance;
+        }
+
+        public Pogotile GetClosestCrateFromPogotile(Pogotile from)
+        {
+            Pogotile pogotile = null;
+            int distance = 1000;
+            foreach (PointCrate crate in _pointCrates)
+            {
+                Pogotile pickableTile = GetTileOfPickable(crate);
+                if (pickableTile != null)
+                {
+                    int z = pickableTile.Z - from.Z;
+                    int x = pickableTile.X - from.X;
+                    int distanceFromTile = Mathf.Abs(x) + Mathf.Abs(z);
+                    if (distanceFromTile < distance)
+                    {
+                        distance = distanceFromTile;
+                        pogotile = pickableTile;
+                    }
+                }
+            }
+
+            return pogotile;
+        }
+
+
+
+        public Pogotile GetTileOfPickable(IPickable pickable)
+        {
+            foreach (LineTiles linetile in _arenaTiles.lineTiles)
+            {
+                foreach (Pogotile tile in linetile.pogotiles)
+                {
+                    if (tile.PickableOnTile == pickable)
+                    {
+                        return tile;
+                    }
+                }
+            }
+            return null;
         }
 
         public void FillTilesFromTileAndDirectionForPlayer(Pogotile pogotile, MoveDirection direction, Player player)
@@ -444,6 +499,47 @@ namespace PogoPandemonium
         public void RemoveShoesFromItsList(SpeedyShoes shoes)
         {
             _speedyShoes.Remove(shoes);
+        }
+
+        public bool IsAlignedWithPlayer(Pogotile pogotile, MoveDirection facingDirection)
+        {
+            int x = 0;
+            int z = 0;
+            Pogotile currentPogoTile = pogotile;
+
+            if (facingDirection == MoveDirection.North)
+            {
+                z += 1;
+            }
+            if (facingDirection == MoveDirection.East)
+            {
+                x += 1;
+            }
+            if (facingDirection == MoveDirection.South)
+            {
+                z -= 1;
+            }
+            if (facingDirection == MoveDirection.West)
+            {
+                x -= 1;
+            }
+
+            bool canGoNext = true;
+
+            while (canGoNext == true)
+            {
+                currentPogoTile = GetPogotileAtCoordinate(currentPogoTile.Z + z, currentPogoTile.X + x);
+                if (currentPogoTile == null)
+                {
+                    canGoNext = false;
+                    break;
+                }
+                if (currentPogoTile.OccupiedByPlayer)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void OnDestroy()

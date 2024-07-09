@@ -27,7 +27,6 @@ namespace PogoPandemonium
         {
             MoveDirection moveDirection = player.GetCurrentMoveDirection();
             float rotationY = player.transform.rotation.eulerAngles.y;
-            Debug.Log(" " + moveDirection);
             if (moveDirection != MoveDirection.None)
             {
                 rotationY = MoveDirectionExtensions.GetYRotationFromDirection(moveDirection);

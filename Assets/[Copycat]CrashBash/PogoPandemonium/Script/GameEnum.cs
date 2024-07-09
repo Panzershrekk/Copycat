@@ -35,5 +35,26 @@ namespace PogoPandemonium
             }
             return 0;
         }
+
+        public static MoveDirection GetDirectionFromYRotation(float y)
+        {
+            if (y == 0)
+            {
+                return MoveDirection.North;
+            }
+            if (y == 90)
+            {
+                return MoveDirection.East;
+            }
+            if (y == 180)
+            {
+                return MoveDirection.South;
+            }
+            if (y == 270)
+            {
+                return MoveDirection.East;
+            }
+            return MoveDirection.None;
+        }
     }
 }
