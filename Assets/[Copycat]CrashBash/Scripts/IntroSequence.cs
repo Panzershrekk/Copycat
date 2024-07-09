@@ -8,6 +8,7 @@ using TMPro;
 
 public class GameSequences : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _winText;
     [SerializeField] private Image _blackScreen;
     [SerializeField] private TMP_Text _3;
     [SerializeField] private TMP_Text _2;
@@ -22,7 +23,7 @@ public class GameSequences : MonoBehaviour
         _2.color = new Color(_2.color.r, _2.color.g, _2.color.b, 0);
         _1.color = new Color(_1.color.r, _1.color.g, _1.color.b, 0);
         _go.color = new Color(_go.color.r, _go.color.g, _go.color.b, 0);
-
+        _winText.gameObject.SetActive(false);
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_blackScreen.DOFade(0, 0.4f).SetEase(Ease.Linear))
                .AppendInterval(0.4f)
@@ -40,11 +41,15 @@ public class GameSequences : MonoBehaviour
         sequence.OnComplete(() => onStartSequenceOver?.Invoke());
     }
 
-    public void StartEndSequence(GameObject toZoom, Camera camera)
+    public void StartEndSequence(GameObject toZoom, Camera camera, string playerName)
     {
+        _winText.text = string.Format("{0} wins !", playerName);
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(0.5f)
-        .Append(camera.transform.DOMove(toZoom.transform.position + new Vector3(0, camera.transform.position.y - 1, -2), 0.5f))
+                .Append(camera.transform.DOMove(toZoom.transform.position + new Vector3(0, camera.transform.position.y - 1, -2), 0.5f).OnComplete(() =>
+                {
+                    _winText.gameObject.SetActive(true);
+                }))
                 .AppendInterval(3.5f)
                 .Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));
         sequence.Play();

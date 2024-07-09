@@ -13,6 +13,7 @@ namespace PogoPandemonium
         public float baseRotation;
         public Material associatedColorMaterial;
         public Pogotile CurrentStandingPogoTile { get; private set; }
+        [SerializeField] string _name;
         [SerializeField] private ActionHandler _actionHandler;
         [SerializeField] private PlayerInfo _playerInfo;
         [SerializeField] private Animator _animator;
@@ -39,7 +40,7 @@ namespace PogoPandemonium
 
         private bool _isStunned = false;
         private float _currentStunTime = 0.0f;
-
+        private bool _lost = false;
 
 
         protected virtual void Update()
@@ -71,6 +72,7 @@ namespace PogoPandemonium
         {
             SetPoint(0);
             StunPlayer(false);
+            _lost = false;
             startingTile.SetOccupiedByPlayer(true);
             startingTile.SetOwner(this);
             transform.localScale = Vector3.one;
@@ -195,6 +197,16 @@ namespace PogoPandemonium
             return _currenMoveDirection;
         }
 
+        public bool HasLost()
+        {
+            return _lost;
+        }
+
+        public string GetName()
+        {
+            return _name;
+        }
+        
         public void DoWin()
         {
             CurrentTickMoveSpeed = 1;
@@ -206,6 +218,7 @@ namespace PogoPandemonium
         public void DoLose()
         {
             transform.DOScale(0.0f, 1f).SetEase(Ease.InOutBack);
+            _lost = true;
             _decal.SetActive(false);
         }
     }

@@ -12,7 +12,7 @@ namespace PogoPandemonium
         public const float DISTANCE_BETWEEN_TILE = 1;
         public const float JUMP_HEIGHT_BETWEEN_TILE = 0.4f;
 
-        public const float ROUND_TIME_IN_SECOND = 20;
+        public const float ROUND_TIME_IN_SECOND = 90;
 
         public const float TIME_BETWEEN_BLINK = 0.03f;
         public const float BLINK_TIME = 0.35f;

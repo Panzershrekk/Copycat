@@ -126,7 +126,7 @@ namespace PogoPandemonium
                             player.DoLose();
                         }
                     }
-                    _introSequence.StartEndSequence(winner.gameObject, _mainCamera);
+                    _introSequence.StartEndSequence(winner.gameObject, _mainCamera, winner.GetName());
                     _gameStarted = false;
                 }
             }
