@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using FMODUnity;
 
 public class GameSequences : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameSequences : MonoBehaviour
     [SerializeField] private TMP_Text _go;
     [HideInInspector] public UnityEvent onStartSequenceOver = new UnityEvent();
     [HideInInspector] public UnityEvent onEndSequenceOver = new UnityEvent();
+    [SerializeField] private EventReference _winSound;
 
     public void StartIntroSequence()
     {
@@ -49,6 +51,7 @@ public class GameSequences : MonoBehaviour
                 .Append(camera.transform.DOMove(toZoom.transform.position + new Vector3(0, camera.transform.position.y - 1, -2), 0.5f).OnComplete(() =>
                 {
                     _winText.gameObject.SetActive(true);
+                    FMODUtilities.PlaySoundOneShot(_winSound);
                 }))
                 .AppendInterval(3.5f)
                 .Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));

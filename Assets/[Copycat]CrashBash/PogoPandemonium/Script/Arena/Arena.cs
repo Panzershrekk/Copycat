@@ -28,6 +28,9 @@ namespace PogoPandemonium
         //Tick time to check for bonus crate etc ...
         [SerializeField] private float _tickCheck = 5f;
         [SerializeField] private int _maxCrateOnArena = 2;
+        [SerializeField] private int _maxShoesOnArena = 1;
+        [SerializeField] private int _maxArrowOnArena = 3;
+        [SerializeField] private int _maxMissileOnArena = 3;
 
         [SerializeField] private PointCrate _pointBoxPrefab;
         [SerializeField] private ArrowBonus _arrowBonusPrefab;
@@ -181,13 +184,13 @@ namespace PogoPandemonium
             int numberOfCrateToSpawn = _maxCrateOnArena - _pointCrates.Count;
             SpawnPickable(_pointBoxPrefab, _pointCrates, numberOfCrateToSpawn);
 
-            int numberOfArrowToSpawn = 1;
+            int numberOfArrowToSpawn = _maxArrowOnArena - _arrowBonus.Count;
             SpawnPickable(_arrowBonusPrefab, _arrowBonus, numberOfArrowToSpawn);
 
-            int numberOfMissileToSpawn = 1;
+            int numberOfMissileToSpawn = _maxMissileOnArena - _missile.Count;
             SpawnPickable(_missilePrefab, _missile, numberOfMissileToSpawn, 0.25f);
 
-            int numberOfShoesToSpawn = 1;
+            int numberOfShoesToSpawn = _maxShoesOnArena - _speedyShoes.Count;
             SpawnPickable(_speedyShoesPrefabs, _speedyShoes, numberOfShoesToSpawn, 0.25f);
         }
 

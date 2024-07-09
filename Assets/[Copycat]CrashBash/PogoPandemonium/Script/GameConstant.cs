@@ -14,8 +14,8 @@ namespace PogoPandemonium
 
         public const float ROUND_TIME_IN_SECOND = 90;
 
-        public const float TIME_BETWEEN_BLINK = 0.03f;
-        public const float BLINK_TIME = 0.35f;
+        public const float TIME_BETWEEN_BLINK = 0.02f;
+        public const float BLINK_TIME = 0.20f;
 
         public const float BASE_MOVE_TICK_TIME = 0.6f;
         public const float SPEEDY_SHOES_TICK_TIME = 0.3f;
