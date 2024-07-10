@@ -25,6 +25,7 @@ namespace PogoPandemonium
         private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected float _currentTickMoveSpeed = 0;
+        
         public float CurrentTickMoveSpeed
         {
             get

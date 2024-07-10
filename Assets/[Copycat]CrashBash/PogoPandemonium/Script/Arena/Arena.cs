@@ -27,6 +27,8 @@ namespace PogoPandemonium
         public static Arena Instance { get; private set; }
         //Tick time to check for bonus crate etc ...
         [SerializeField] private float _tickCheck = 5f;
+        [SerializeField] private float _spawnProbabilityForBoxPerCheck = 0.35f;
+        [SerializeField] private float _spawnProbabilityForBonusPerCheck = 0.15f;
         [SerializeField] private int _maxCrateOnArena = 2;
         [SerializeField] private int _maxShoesOnArena = 1;
         [SerializeField] private int _maxArrowOnArena = 3;
@@ -181,24 +183,30 @@ namespace PogoPandemonium
 
         private void SpawnerHandler()
         {
-            int numberOfCrateToSpawn = _maxCrateOnArena - _pointCrates.Count;
-            SpawnPickable(_pointBoxPrefab, _pointCrates, numberOfCrateToSpawn);
-
-            int numberOfArrowToSpawn = _maxArrowOnArena - _arrowBonus.Count;
-            SpawnPickable(_arrowBonusPrefab, _arrowBonus, numberOfArrowToSpawn);
-
-            int numberOfMissileToSpawn = _maxMissileOnArena - _missile.Count;
-            SpawnPickable(_missilePrefab, _missile, numberOfMissileToSpawn, 0.25f);
-
-            int numberOfShoesToSpawn = _maxShoesOnArena - _speedyShoes.Count;
-            SpawnPickable(_speedyShoesPrefabs, _speedyShoes, numberOfShoesToSpawn, 0.25f);
+            if (_pointCrates.Count < _maxCrateOnArena)
+            {
+                SpawnPickable(_pointBoxPrefab, _pointCrates, _spawnProbabilityForBoxPerCheck);
+            }
+            if (_arrowBonus.Count < _maxArrowOnArena)
+            {
+                SpawnPickable(_arrowBonusPrefab, _arrowBonus, _spawnProbabilityForBonusPerCheck);
+            }
+            if (_missile.Count < _maxMissileOnArena)
+            {
+                SpawnPickable(_missilePrefab, _missile, _spawnProbabilityForBonusPerCheck, 0.25f);
+            }
+            if (_speedyShoes.Count < _maxShoesOnArena)
+            {
+                SpawnPickable(_speedyShoesPrefabs, _speedyShoes, _spawnProbabilityForBonusPerCheck, 0.25f);
+            }
         }
 
-        private void SpawnPickable<T>(T prefab, List<T> objectList, int numberToSpawn, float yOffset = 0) where T : MonoBehaviour, IPickable
+        private void SpawnPickable<T>(T prefab, List<T> objectList, float probability, float yOffset = 0) where T : MonoBehaviour, IPickable
         {
-            List<Pogotile> emptyTiles = GetEmptyTiles();
-            for (int i = 0; i < numberToSpawn; i++)
+            float randValue = UnityEngine.Random.Range(0f, 1f);
+            if (randValue < probability)
             {
+                List<Pogotile> emptyTiles = GetEmptyTiles();
                 Pogotile pogotile = emptyTiles[UnityEngine.Random.Range(0, emptyTiles.Count)];
                 T obj = Instantiate(prefab, pogotile.transform.position + new Vector3(0.5f, 0f + yOffset, 0.5f), Quaternion.identity);
                 pogotile.SetOccupiedByObject(true, obj);

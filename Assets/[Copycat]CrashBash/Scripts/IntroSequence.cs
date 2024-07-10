@@ -6,9 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using FMODUnity;
+using UnityEngine.InputSystem;
 
 public class GameSequences : MonoBehaviour
 {
+    private CopyCatInputSystem _tutorialInput;
+    [SerializeField] private GameObject _tutoPanel;
     [SerializeField] private TMP_Text _winText;
     [SerializeField] private Image _blackScreen;
     [SerializeField] private TMP_Text _3;
@@ -18,6 +21,20 @@ public class GameSequences : MonoBehaviour
     [HideInInspector] public UnityEvent onStartSequenceOver = new UnityEvent();
     [HideInInspector] public UnityEvent onEndSequenceOver = new UnityEvent();
     [SerializeField] private EventReference _winSound;
+    private bool _tutorialSeen = false;
+
+    public void Start()
+    {
+        _tutorialInput = new CopyCatInputSystem();
+        _tutorialInput.Menu.Enable();
+        _tutorialInput.Menu.Submit.performed += SubmitTutorial;
+        _tutoPanel.SetActive(false);
+        if (_tutorialSeen == false)
+        {
+            PauserManager.Instance.TogglePause(true);
+            _tutoPanel.SetActive(true);
+        }
+    }
 
     public void StartIntroSequence()
     {
@@ -27,7 +44,7 @@ public class GameSequences : MonoBehaviour
         _go.color = new Color(_go.color.r, _go.color.g, _go.color.b, 0);
         _winText.gameObject.SetActive(false);
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_blackScreen.DOFade(0, 0.4f).SetEase(Ease.Linear))
+        sequence.Append(_blackScreen.DOFade(0, 0.4f).SetEase(Ease.Linear).SetUpdate(true))
                .AppendInterval(0.4f)
                .Append(_3.DOFade(1, 0.5f).SetEase(Ease.InOutQuad))
                .Append(_3.DOFade(0, 0.5f).SetEase(Ease.InOutQuad))
@@ -37,8 +54,6 @@ public class GameSequences : MonoBehaviour
                .Append(_1.DOFade(0, 0.5f).SetEase(Ease.InOutQuad))
                 .Append(_go.DOFade(1, 0.3f).SetEase(Ease.InOutQuad))
                 .Append(_go.DOFade(0, 0.3f).SetEase(Ease.InOutQuad));
-
-
         sequence.Play();
         sequence.OnComplete(() => onStartSequenceOver?.Invoke());
     }
@@ -57,5 +72,12 @@ public class GameSequences : MonoBehaviour
                 .Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));
         sequence.Play();
         sequence.OnComplete(() => onEndSequenceOver?.Invoke());
+    }
+
+    public void SubmitTutorial(InputAction.CallbackContext context)
+    {
+        _tutorialSeen = true;
+        PauserManager.Instance.TogglePause(false);
+        _tutoPanel.SetActive(false);
     }
 }
