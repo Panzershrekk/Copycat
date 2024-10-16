@@ -177,7 +177,7 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Copycat.bank
   Name: Copycat
   StudioPath: bank:/Copycat
-  lastModified: 638563043918234293
+  lastModified: 638560498866962121
   FileSizes:
   - Name: Desktop
     Value: 2081152
@@ -197,7 +197,7 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638563043918234293
+  lastModified: 638560482086781037
   FileSizes:
   - Name: Desktop
     Value: 1206
@@ -217,7 +217,7 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638563043918234293
+  lastModified: 638560482086751073
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -281,7 +281,7 @@ MonoBehaviour:
   - {fileID: -4608888985239463159}
   StringsBanks:
   - {fileID: -5354020096630228468}
-  cacheTime: 638563043918234293
+  cacheTime: 638560498866962121
   cacheVersion: 131618
 --- !u!114 &3407436093255893529
 MonoBehaviour:
