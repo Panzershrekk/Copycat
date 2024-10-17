@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a340d283554ec274ea372bcbe6e8cbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpAscendFrameInPercent: 0.213
   _jumpSound:
     Guid:
       Data1: 1409606390
@@ -234,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 5317076932944300755}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0.006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

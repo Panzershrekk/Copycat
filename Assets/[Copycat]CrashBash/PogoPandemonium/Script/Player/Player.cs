@@ -90,6 +90,7 @@ namespace PogoPandemonium
             {
                 _currenMoveDirection = MoveDirection.None;
             }
+            _animator.Play("PogoIdle");
             _actionHandler.ProcessDirection(this, _currenMoveDirection);
         }
 
@@ -113,6 +114,11 @@ namespace PogoPandemonium
             {
                 RemoveBuff();
                 _currentStunTime = GameConstant.STUN_TIME;
+                CurrentTickMoveSpeed = 1;
+            }
+            else
+            {
+                CurrentTickMoveSpeed = GameConstant.BASE_MOVE_TICK_TIME;
             }
             _isStunned = stunStatus;
             _animator.SetBool("Stunned", stunStatus);
@@ -150,6 +156,7 @@ namespace PogoPandemonium
         public void PositionPlayerToStartingTile()
         {
             _actionHandler.JumpTween.Kill();
+            _actionHandler.JumpSequence.Kill();
             this.transform.rotation = Quaternion.Euler(0, baseRotation, 0);
             this.transform.position = startingTile.transform.position + new Vector3(0.5f, 0, 0.5f);
         }

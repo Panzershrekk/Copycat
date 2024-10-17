@@ -21,7 +21,7 @@ namespace PogoPandemonium
         public const float SPEEDY_SHOES_TICK_TIME = 0.3f;
         public const float SPEEDY_SHOES_DURATION_IN_SECOND = 8f;
         public const float MISSILE_SPEED = 12f;
-        public const float STUN_TIME = 2f;
+        public const float STUN_TIME = 1.5f;
 
     }
 }
