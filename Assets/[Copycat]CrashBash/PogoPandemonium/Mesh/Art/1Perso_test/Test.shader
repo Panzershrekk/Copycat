@@ -291,7 +291,7 @@ Shader "Test"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -310,7 +310,7 @@ Shader "Test"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD1;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -325,10 +325,7 @@ Shader "Test"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -384,8 +381,6 @@ Shader "Test"
 					#endif
 				#endif
 
-				float2 uv_Crash_lp_Fur_AlbedoTransparency = IN.ase_texcoord2.xy * _Crash_lp_Fur_AlbedoTransparency_ST.xy + _Crash_lp_Fur_AlbedoTransparency_ST.zw;
-				float4 tex2DNode6 = tex2D( _Crash_lp_Fur_AlbedoTransparency, uv_Crash_lp_Fur_AlbedoTransparency );
 				
 				float Alpha = tex2DNode6.a;
 				float AlphaClipThreshold = 0.5;
@@ -445,7 +440,7 @@ Shader "Test"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -458,7 +453,7 @@ Shader "Test"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD1;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -471,10 +466,7 @@ Shader "Test"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -523,8 +515,6 @@ Shader "Test"
 					#endif
 				#endif
 
-				float2 uv_Crash_lp_Fur_AlbedoTransparency = IN.ase_texcoord2.xy * _Crash_lp_Fur_AlbedoTransparency_ST.xy + _Crash_lp_Fur_AlbedoTransparency_ST.zw;
-				float4 tex2DNode6 = tex2D( _Crash_lp_Fur_AlbedoTransparency, uv_Crash_lp_Fur_AlbedoTransparency );
 				
 				float Alpha = tex2DNode6.a;
 				float AlphaClipThreshold = 0.5;
@@ -586,7 +576,7 @@ Shader "Test"
 				float3 ase_normal : NORMAL;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -599,7 +589,7 @@ Shader "Test"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD1;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -612,10 +602,7 @@ Shader "Test"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 				
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -664,8 +651,6 @@ Shader "Test"
 					#endif
 				#endif
 
-				float2 uv_Crash_lp_Fur_AlbedoTransparency = IN.ase_texcoord2.xy * _Crash_lp_Fur_AlbedoTransparency_ST.xy + _Crash_lp_Fur_AlbedoTransparency_ST.zw;
-				float4 tex2DNode6 = tex2D( _Crash_lp_Fur_AlbedoTransparency, uv_Crash_lp_Fur_AlbedoTransparency );
 				
 				
 				float3 Albedo = tex2DNode6.rgb;
@@ -735,7 +720,7 @@ Shader "Test"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -748,7 +733,7 @@ Shader "Test"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD1;
 				#endif
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -761,10 +746,7 @@ Shader "Test"
 				UNITY_TRANSFER_INSTANCE_ID( v, o );
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
 				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 				
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -816,8 +798,6 @@ Shader "Test"
 					#endif
 				#endif
 
-				float2 uv_Crash_lp_Fur_AlbedoTransparency = IN.ase_texcoord2.xy * _Crash_lp_Fur_AlbedoTransparency_ST.xy + _Crash_lp_Fur_AlbedoTransparency_ST.zw;
-				float4 tex2DNode6 = tex2D( _Crash_lp_Fur_AlbedoTransparency, uv_Crash_lp_Fur_AlbedoTransparency );
 				
 				
 				float3 Albedo = tex2DNode6.rgb;
@@ -842,11 +822,11 @@ Shader "Test"
 }
 /*ASEBEGIN
 Version=17800
-1382;423;1950;791;1022.19;496.0346;1.3;True;True
-Node;AmplifyShaderEditor.SamplerNode;6;-717,-246;Inherit;True;Property;_Crash_lp_Fur_AlbedoTransparency;Crash_lp_Fur_AlbedoTransparency;0;0;Create;True;0;0;False;0;-1;51f8ab40fecb25b44b81bfbe951a4609;51f8ab40fecb25b44b81bfbe951a4609;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SamplerNode;13;-654.5173,365.9384;Inherit;True;Property;_Crash_lp_Fur_Normal;Crash_lp_Fur_Normal;1;0;Create;True;0;0;False;0;-1;5cf1113a5a2fcb147afdc24aa18d0c9c;5cf1113a5a2fcb147afdc24aa18d0c9c;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+1317;220;1198;718;858.3936;352.2307;1;False;False
+Node;AmplifyShaderEditor.SamplerNode;13;-654.5173,365.9384;Inherit;True;Property;_Crash_lp_Fur_Normal;Crash_lp_Fur_Normal;0;0;Create;True;0;0;False;0;-1;5cf1113a5a2fcb147afdc24aa18d0c9c;5cf1113a5a2fcb147afdc24aa18d0c9c;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.FresnelNode;18;-1013.667,164.6462;Inherit;True;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;8;-668,1;Inherit;False;Constant;_Float0;Float 0;2;0;Create;True;0;0;False;0;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SamplerNode;6;-717,-246;Inherit;True;Property;_Crash_lp_Fur_AlbedoTransparency;Crash_lp_Fur_AlbedoTransparency;0;0;Create;True;0;0;False;0;-1;51f8ab40fecb25b44b81bfbe951a4609;51f8ab40fecb25b44b81bfbe951a4609;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;True;0;False;-1;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;0;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;Test;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;12;False;False;False;True;2;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;True;0;0;True;2;5;False;-1;10;False;-1;1;1;False;-1;10;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;2;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;0;Hidden/InternalErrorShader;0;0;Standard;13;Workflow;1;Surface;1;  Blend;0;Two Sided;0;Cast Shadows;1;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;Meta Pass;1;Override Baked GI;0;Extra Pre Pass;0;Vertex Position,InvertActionOnDeselection;1;0;6;False;True;True;True;True;True;False;;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
@@ -858,4 +838,4 @@ WireConnection;1;3;8;0
 WireConnection;1;4;8;0
 WireConnection;1;6;6;4
 ASEEND*/
-//CHKSM=7471651746488AAEFA7218AA1B16962715CB906C
+//CHKSM=90240FC18B6065FA86C668E8BDE03C7B6CC929AE

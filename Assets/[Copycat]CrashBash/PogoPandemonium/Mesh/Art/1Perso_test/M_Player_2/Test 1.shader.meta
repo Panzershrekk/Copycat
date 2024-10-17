@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 2506f33b8d0ac3c469fb4aabdaf75b0b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Crash_lp_Fur_AlbedoTransparency: {fileID: 2800000, guid: 51f8ab40fecb25b44b81bfbe951a4609,
+      type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
