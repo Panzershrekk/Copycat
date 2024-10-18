@@ -553,6 +553,11 @@ namespace PogoPandemonium
             return false;
         }
 
+        public bool GetGameState()
+        {
+            return _gameStarted;
+        }
+
         private void OnDestroy()
         {
             foreach (Player player in _players)

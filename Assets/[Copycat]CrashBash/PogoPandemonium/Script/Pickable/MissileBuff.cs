@@ -31,7 +31,7 @@ namespace PogoPandemonium
             {
                 rotationY = MoveDirectionExtensions.GetYRotationFromDirection(moveDirection);
             }
-            MissileDamager missileDamager = GameObject.Instantiate(_missileDamager, player.transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, rotationY, 0), null);
+            MissileDamager missileDamager = GameObject.Instantiate(_missileDamager, new Vector3(player.transform.position.x, 0.5f, player.transform.position.z), Quaternion.Euler(0, rotationY, 0), null);
             missileDamager.Setup(player);
             player.RemoveBuff();
         }

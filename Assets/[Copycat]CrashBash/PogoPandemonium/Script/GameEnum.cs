@@ -17,7 +17,7 @@ namespace PogoPandemonium
     {
         public static int GetYRotationFromDirection(MoveDirection dir)
         {
-            if (dir == MoveDirection.North || dir == MoveDirection.None)
+            if (dir == MoveDirection.North)
             {
                 return 0;
             }
@@ -29,7 +29,7 @@ namespace PogoPandemonium
             {
                 return 180;
             }
-            if (dir == MoveDirection.East)
+            if (dir == MoveDirection.West)
             {
                 return 270;
             }

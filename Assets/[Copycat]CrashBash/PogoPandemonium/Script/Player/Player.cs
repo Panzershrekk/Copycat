@@ -78,7 +78,7 @@ namespace PogoPandemonium
             startingTile.SetOwner(this);
             transform.localScale = Vector3.one;
             _decal.SetActive(true);
-            _animator.Play("PogoIdle");
+            _animator.Play("None");
             CurrentStandingPogoTile = startingTile;
             CurrentTickMoveSpeed = GameConstant.BASE_MOVE_TICK_TIME;
             _currentTickMove = CurrentTickMoveSpeed;
@@ -90,7 +90,6 @@ namespace PogoPandemonium
             {
                 _currenMoveDirection = MoveDirection.None;
             }
-            _animator.Play("PogoIdle");
             _actionHandler.ProcessDirection(this, _currenMoveDirection);
         }
 
@@ -215,11 +214,22 @@ namespace PogoPandemonium
             return _name;
         }
         
+        public Animator GetAnimator()
+        {
+            return _animator;
+        }
+
+        public bool IsStunned()
+        {
+            return _isStunned;
+        }
+
         public void DoWin()
         {
             CurrentTickMoveSpeed = 1;
             transform.rotation = Quaternion.Euler(0, 180, 0);
             _playerInfo.AddWin();
+            _actionHandler.JumpSequence?.Complete();
             _animator.Play("POGO_WIN");
         }
 
