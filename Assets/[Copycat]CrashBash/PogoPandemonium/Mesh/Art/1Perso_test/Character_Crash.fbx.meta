@@ -104,11 +104,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|[CHA]Hit
-      takeName: Armature|[CHA]Hit
+      name: Armature|[CHA]Hit_Retake
+      takeName: Armature|[CHA]Hit_Retake
       internalID: 8446509923437995428
       firstFrame: 0
-      lastFrame: 32
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
