@@ -73,12 +73,12 @@ namespace PogoPandemonium
                     float descendStartTime = sequenceTime * 0.67f;
 
                     Vector3 controlPoint = (this.transform.position + destination) / 2;
-                    controlPoint.y += 1.5f;  // Augmenter Y pour créer l'arc
+                    controlPoint.y += GameConstant.JUMP_HEIGHT_BETWEEN_TILE;  // Augmenter Y pour créer l'arc
 
                     Vector3 midPoint1 = Vector3.Lerp(this.transform.position, destination, 0.33f);
                     Vector3 midPoint2 = Vector3.Lerp(this.transform.position, destination, 0.66f);
-                    midPoint1.y += 1f;
-                    midPoint2.y += 1f;
+                    midPoint1.y += controlPoint.y * 0.66f;
+                    midPoint2.y += controlPoint.y * 0.66f;
 
                     Vector3[] path = new Vector3[] { transform.position, midPoint1, controlPoint, midPoint2, destination };
                     JumpSequence.AppendInterval(ascendStartTime);
