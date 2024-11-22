@@ -66,7 +66,7 @@ namespace PogoPandemonium
                     FMODUtilities.PlaySoundOneShot(_jumpSound);
 
                     //JumpTween = transform.DOJump(destination, 0.4f, 1, player.CurrentTickMoveSpeed * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
-                    float sequenceTime = player.CurrentTickMoveSpeed * 1f;
+                    float sequenceTime = player.CurrentTickMoveSpeed * 0.95f;
                     JumpSequence = DOTween.Sequence();
 
                     float ascendStartTime = sequenceTime * 0.15f;

@@ -25,7 +25,7 @@ namespace PogoPandemonium
         private bool _canMove = false;
         protected MoveDirection _currenMoveDirection = MoveDirection.None;
         protected float _currentTickMoveSpeed = 0;
-        
+
         public float CurrentTickMoveSpeed
         {
             get
@@ -89,6 +89,10 @@ namespace PogoPandemonium
             if (_canMove == false)
             {
                 _currenMoveDirection = MoveDirection.None;
+            }
+            if (_actionHandler.JumpSequence != null && _actionHandler.JumpSequence.IsActive() && !_actionHandler.JumpSequence.IsComplete())
+            {
+                _actionHandler.JumpSequence.Complete();
             }
             _actionHandler.ProcessDirection(this, _currenMoveDirection);
         }
@@ -213,7 +217,7 @@ namespace PogoPandemonium
         {
             return _name;
         }
-        
+
         public Animator GetAnimator()
         {
             return _animator;
