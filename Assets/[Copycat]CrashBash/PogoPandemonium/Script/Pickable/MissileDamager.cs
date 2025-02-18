@@ -17,7 +17,7 @@ namespace PogoPandemonium
         // Start is called before the first frame update
         void Start()
         {
-            FMODUtilities.PlaySoundOneShot(_spawnSound);
+            RuntimeManager.PlayOneShotAttached(_spawnSound, gameObject);
             Destroy(this.gameObject, 8f);
         }
 
@@ -41,7 +41,7 @@ namespace PogoPandemonium
             Player player = other.GetComponent<Player>();
             if (player != null && player != _owner)
             {
-                FMODUtilities.PlaySoundOneShot(_onHitSound);
+                RuntimeManager.PlayOneShot(_onHitSound, transform.position);
                 Instantiate(_hitParticle, other.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, null);
                 player.StunPlayer(true);
                 Destroy(this.gameObject);

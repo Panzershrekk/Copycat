@@ -1939,7 +1939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095c13c0379d91d45a06024e3cf36e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
 --- !u!4 &124334744
 Transform:
   m_ObjectHideFlags: 0
@@ -5044,6 +5043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutoPanel: {fileID: 1786281797}
+  _music: {fileID: 1478464491}
   _winText: {fileID: 134088698}
   _blackScreen: {fileID: 724910899}
   _3: {fileID: 1185926269}
@@ -5063,6 +5063,13 @@ MonoBehaviour:
       Data3: 70575262
       Data4: -526385361
     Path: event:/Win
+  _321Sound:
+    Guid:
+      Data1: 1576909082
+      Data2: 1246490543
+      Data3: 717612979
+      Data4: 894113719
+    Path: event:/321
 --- !u!222 &316678696
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9780,7 +9787,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 152.5
+  m_fontSize: 152.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -26065,7 +26072,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 407.65
+  m_fontSize: 407.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -34857,7 +34864,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 407.65
+  m_fontSize: 407.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35305,7 +35312,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 407.65
+  m_fontSize: 407.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -40531,7 +40538,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 408.7
+  m_fontSize: 408.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

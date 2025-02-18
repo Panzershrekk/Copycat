@@ -5,7 +5,7 @@
 			<value>ShoesPicked</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{dfcadc2b-1e8d-4563-9cbf-32b16f110d18}</destination>
@@ -64,9 +64,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{7e7ac3d2-0198-4973-8615-501f2a4da213}">
-		<property name="volume">
-			<value>-15</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{359a41dc-85fe-4a61-9517-eb13ca74c666}</destination>
 		</relationship>
@@ -81,11 +78,8 @@
 		<property name="length">
 			<value>1.2698412698412698</value>
 		</property>
-		<property name="volume">
-			<value>7.5</value>
-		</property>
 		<property name="pitch">
-			<value>6.5</value>
+			<value>3.79999995</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{20efec41-7603-4544-b209-30cd2ff7aa70}</destination>
@@ -100,9 +94,11 @@
 	<object class="MixerBusEffectChain" id="{359a41dc-85fe-4a61-9517-eb13ca74c666}">
 		<relationship name="effects">
 			<destination>{39a21e1d-ecb9-4f82-80c2-734f7e292dd5}</destination>
+			<destination>{6431a835-e3ca-4cd1-9028-9faaee4d25fc}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{4c903ef5-cf38-4d4c-a45a-f0009371df52}" />
 	<object class="MixerBusFader" id="{1248cc9d-808b-4496-adec-f93b4dac854b}" />
 	<object class="MixerBusFader" id="{39a21e1d-ecb9-4f82-80c2-734f7e292dd5}" />
+	<object class="SpatialiserEffect" id="{6431a835-e3ca-4cd1-9028-9faaee4d25fc}" />
 </objects>

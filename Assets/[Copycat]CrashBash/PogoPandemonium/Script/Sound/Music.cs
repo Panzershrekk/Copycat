@@ -6,6 +6,7 @@ using UnityEngine;
 public class Music : MonoBehaviour
 {
     [SerializeField] EventReference _music;
+    FMOD.Studio.EventInstance _eventInstance;
 
     void Start()
     {
@@ -16,9 +17,13 @@ public class Music : MonoBehaviour
     {
         if (!_music.IsNull)
         {
-            FMOD.Studio.EventInstance eventInstance = RuntimeManager.CreateInstance(_music);
-            eventInstance.start();
-            eventInstance.release();
+            _eventInstance = RuntimeManager.CreateInstance(_music);
+            _eventInstance.start();
         }
+    }
+
+    public void SetGameValue(float value)
+    {
+        _eventInstance.setParameterByName("Game", value);
     }
 }

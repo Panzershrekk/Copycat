@@ -15,7 +15,7 @@ namespace PogoPandemonium
         {
             if (!_pickUpSound.IsNull)
             {
-                FMODUtilities.PlaySoundOneShot(_pickUpSound);
+                RuntimeManager.PlayOneShot(_pickUpSound, transform.position);
             }
         }
     }

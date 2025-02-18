@@ -23,10 +23,11 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: 4505701696904529881}
   MinDistance: 1
   MaxDistance: 20
-  Length: 158066
+  Length: 113684
 --- !u!114 &-7237310205848439164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -75,12 +76,12 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1257
+  Length: 3968
 --- !u!114 &-6155458671345069943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,12 +103,12 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 408
+  Length: 0
 --- !u!114 &-6104728654698621658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,12 +130,12 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 429
+  Length: 734
 --- !u!114 &-5771078616281421652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 284
+  Length: 1832
 --- !u!114 &-5595797255873916874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,11 +178,38 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Copycat.bank
   Name: Copycat
   StudioPath: bank:/Copycat
-  lastModified: 638563043918234293
+  lastModified: 638754818495210107
   FileSizes:
   - Name: Desktop
-    Value: 2081152
+    Value: 1776128
   Exists: 1
+--- !u!114 &-5511620424778745805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/321
+  m_EditorClassIdentifier: 
+  Path: event:/321
+  Guid:
+    Data1: 1576909082
+    Data2: 1246490543
+    Data3: 717612979
+    Data4: 894113719
+  Banks:
+  - {fileID: -5595797255873916874}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5354020096630228468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +225,10 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638563043918234293
+  lastModified: 638754724748800265
   FileSizes:
   - Name: Desktop
-    Value: 1206
+    Value: 1286
   Exists: 1
 --- !u!114 &-4608888985239463159
 MonoBehaviour:
@@ -217,7 +245,7 @@ MonoBehaviour:
   Path: FMODAsset/PogoPandemonium/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638563043918234293
+  lastModified: 638754724748795263
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -276,12 +304,13 @@ MonoBehaviour:
   - {fileID: -7237310205848439164}
   - {fileID: 3407436093255893529}
   - {fileID: 5100645345057379738}
+  - {fileID: -5511620424778745805}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4608888985239463159}
   StringsBanks:
   - {fileID: -5354020096630228468}
-  cacheTime: 638563043918234293
+  cacheTime: 638754818495210107
   cacheVersion: 131618
 --- !u!114 &3407436093255893529
 MonoBehaviour:
@@ -304,12 +333,36 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 1269
+--- !u!114 &4505701696904529881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/Game
+  m_EditorClassIdentifier: 
+  Name: Game
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1831336011
+    data2: 1151757770
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &5100645345057379738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +384,7 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -358,7 +411,7 @@ MonoBehaviour:
   Banks:
   - {fileID: -5595797255873916874}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1

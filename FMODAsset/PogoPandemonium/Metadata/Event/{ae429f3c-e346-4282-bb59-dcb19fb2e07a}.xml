@@ -5,7 +5,7 @@
 			<value>MissilePicked</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{dfcadc2b-1e8d-4563-9cbf-32b16f110d18}</destination>
@@ -64,6 +64,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{ac597241-514a-48c0-841c-dd280f31e2d1}">
+		<property name="volume">
+			<value>2.5</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{3dba181c-64c7-4908-8205-c36a7366a2d6}</destination>
 		</relationship>
@@ -76,13 +79,7 @@
 	</object>
 	<object class="SingleSound" id="{7b0cfd59-5f66-4944-9398-ab6d68cf7a8c}">
 		<property name="length">
-			<value>0.4292063492063492</value>
-		</property>
-		<property name="volume">
-			<value>-7.5</value>
-		</property>
-		<property name="pitch">
-			<value>-2.60000014</value>
+			<value>0.734375</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{5c5965e4-9ed6-4cc1-bb13-79df603926d2}</destination>
@@ -97,9 +94,11 @@
 	<object class="MixerBusEffectChain" id="{3dba181c-64c7-4908-8205-c36a7366a2d6}">
 		<relationship name="effects">
 			<destination>{6a8fee0c-ee64-4dcb-b900-5af651533fae}</destination>
+			<destination>{1e8c0a72-8825-4b05-9831-1e759640cd23}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f668c7ca-c91d-41ef-8bac-93711af60698}" />
 	<object class="MixerBusFader" id="{a01831de-fcab-4d34-be6e-3f93559554cc}" />
 	<object class="MixerBusFader" id="{6a8fee0c-ee64-4dcb-b900-5af651533fae}" />
+	<object class="SpatialiserEffect" id="{1e8c0a72-8825-4b05-9831-1e759640cd23}" />
 </objects>

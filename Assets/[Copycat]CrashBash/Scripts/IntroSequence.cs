@@ -7,11 +7,14 @@ using UnityEngine.UI;
 using TMPro;
 using FMODUnity;
 using UnityEngine.InputSystem;
+using System;
 
 public class GameSequences : MonoBehaviour
 {
     private CopyCatInputSystem _tutorialInput;
+    
     [SerializeField] private GameObject _tutoPanel;
+    [SerializeField] private Music _music;
     [SerializeField] private TMP_Text _winText;
     [SerializeField] private Image _blackScreen;
     [SerializeField] private TMP_Text _3;
@@ -21,6 +24,7 @@ public class GameSequences : MonoBehaviour
     [HideInInspector] public UnityEvent onStartSequenceOver = new UnityEvent();
     [HideInInspector] public UnityEvent onEndSequenceOver = new UnityEvent();
     [SerializeField] private EventReference _winSound;
+    [SerializeField] private EventReference _321Sound;
     private bool _tutorialSeen = false;
 
     public void Start()
@@ -44,7 +48,8 @@ public class GameSequences : MonoBehaviour
         _go.color = new Color(_go.color.r, _go.color.g, _go.color.b, 0);
         _winText.gameObject.SetActive(false);
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_blackScreen.DOFade(0, 0.4f).SetEase(Ease.Linear).SetUpdate(true))
+        sequence.Append(_blackScreen.DOFade(0, 0.4f).SetEase(Ease.Linear).SetUpdate(true))  
+            .Append(StartSoundTween())
                .AppendInterval(0.4f)
                .Append(_3.DOFade(1, 0.5f).SetEase(Ease.InOutQuad))
                .Append(_3.DOFade(0, 0.5f).SetEase(Ease.InOutQuad))
@@ -54,8 +59,8 @@ public class GameSequences : MonoBehaviour
                .Append(_1.DOFade(0, 0.5f).SetEase(Ease.InOutQuad))
                 .Append(_go.DOFade(1, 0.3f).SetEase(Ease.InOutQuad))
                 .Append(_go.DOFade(0, 0.3f).SetEase(Ease.InOutQuad));
-        sequence.Play();
-        sequence.OnComplete(() => onStartSequenceOver?.Invoke());
+        sequence.Play();        
+        sequence.OnComplete(() => { onStartSequenceOver?.Invoke(); });
     }
 
     public void StartEndSequence(GameObject toZoom, Camera camera, string playerName)
@@ -71,13 +76,26 @@ public class GameSequences : MonoBehaviour
                 .AppendInterval(3.5f)
                 .Append(_blackScreen.DOFade(1, 0.4f).SetEase(Ease.Linear));
         sequence.Play();
-        sequence.OnComplete(() => onEndSequenceOver?.Invoke());
+        sequence.OnComplete(() =>{ onEndSequenceOver?.Invoke(); /*_music.SetGameValue(0);*/ });
     }
 
     public void SubmitTutorial(InputAction.CallbackContext context)
     {
         _tutorialSeen = true;
         PauserManager.Instance.TogglePause(false);
-        _tutoPanel.SetActive(false);
+        _tutoPanel.SetActive(false);        
+    }
+
+    public Tween StartSoundTween()
+    {
+        StartCoroutine(TitomFaitDesTimeScaleCradoAlorsJimprovise());
+        return DOTween.To(() => 0, (x) => x = 0, 0, 0.1f);
+    }
+
+    private IEnumerator TitomFaitDesTimeScaleCradoAlorsJimprovise()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _music.SetGameValue(1);
+        RuntimeManager.PlayOneShot(_321Sound);
     }
 }

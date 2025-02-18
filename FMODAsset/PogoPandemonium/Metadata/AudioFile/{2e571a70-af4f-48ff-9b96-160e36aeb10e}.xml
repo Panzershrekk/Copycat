@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2e571a70-af4f-48ff-9b96-160e36aeb10e}">
+		<property name="assetPath">
+			<value>Crate (4).wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0909166666666668</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{687d9d9e-cbf7-4478-916c-c742304589e5}</destination>
+		</relationship>
+	</object>
+</objects>

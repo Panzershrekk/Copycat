@@ -63,7 +63,7 @@ namespace PogoPandemonium
                 destination = nextPogoTile.transform.position + new Vector3(0.5f, 0, 0.5f);
                 if (moveDirection != MoveDirection.None)
                 {
-                    FMODUtilities.PlaySoundOneShot(_jumpSound);
+                    RuntimeManager.PlayOneShot(_jumpSound, transform.position);
 
                     //JumpTween = transform.DOJump(destination, 0.4f, 1, player.CurrentTickMoveSpeed * 0.9f, false).OnComplete(() => FinishMovement(player, nextPogoTile));
                     float sequenceTime = player.CurrentTickMoveSpeed * 0.95f;
